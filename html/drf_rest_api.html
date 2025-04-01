@@ -160,13 +160,14 @@ urlpatterns = [
     #path('celery/result/<pk>/', CeleryResultView.as_view()),
 ]</code>
       </div>
-      Прописать drf_yasg и rest_framework в INSTALLED_APPS. Свагер поднят и доступен по api/swagger/.
-      Создать апп для статей
+      <h4>Прописать drf_yasg и rest_framework в INSTALLED_APPS. Свагер поднят и доступен по api/swagger/</h4>
+      <h4>Создать апп для статей</h4>
       <div class="code-container">
 <code>python project/manage.py startapp article</code>
       </div>
-      В ArticleConfig прописать корректный путь apps.article, прописать в settings/apps.py<br>
-      Удалить views.py и tests.py, прописать простую модель статьи
+      <h4>В ArticleConfig прописать корректный путь apps.article, прописать в settings/apps.py<br>
+        Удалить views.py и tests.py, прописать простую модель статьи
+      </h4>
       <div class="code-container">
 <code>from django.db import models
 
@@ -179,7 +180,7 @@ class Article(models.Model):
     verbose_name = 'Статья'
     verbose_name_plural = 'Статьи'</code>
       </div>
-      Зарегистрировать модель в admin.py
+      <h4>Зарегистрировать модель в admin.py</h4>
       <div class="code-container">
 <code>from django.contrib import admin
 
@@ -189,8 +190,9 @@ from .models import Article
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('id', 'created_at', 'title')</code>
       </div>
-      Далее создать в директории api директорию article, в ней файлы views.py и serializers.py<br>
-      В views.py разместить примитивный вьюсет
+      <h4>Далее создать в директории api директорию article, в ней файлы views.py и serializers.py<br>
+        В views.py разместить примитивный вьюсет
+      </h4>
       <div class="code-container">
 <code>from rest_framework.viewsets import ModelViewSet
 from apps.article.models import Article
@@ -200,7 +202,7 @@ class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer</code>
       </div>
-      В serializers.py разместить простой сериалайзер статьи
+      <h4>В serializers.py разместить простой сериалайзер статьи</h4>
       <div class="code-container">
 <code>from rest_framework import serializers
 from apps.article.models import Article
@@ -210,10 +212,11 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = ('id', 'created_at', 'title', 'body')</code>
       </div>
-      В urls.py в api зарегистрировать вьюсет, добавив
+      <h4>В urls.py в api зарегистрировать вьюсет, добавив</h4>
       <div class="code-container">
 <code>router.register('article', ArticleViewSet, 'article')</code>
       </div>
+      <h4>Простейший макет для Django-приложения под RestAPI готов!</h4>
     </div>
     <div id="footer">
         <p>Copyright © aamakarenko.ru 2025</p>
