@@ -17,27 +17,27 @@
         <li><a href="drf_rest_api.html">Настройка Django для работы с REST API</a></li>
       </ul>
     </div>
-    <h3>Настройка проекта Django/PostgreSQL/DRF/SWAGGER</h3>
     <div id="article">
-      Виртуальное окружение
+      <h3>Настройка проекта Django/PostgreSQL/DRF/SWAGGER</h3>
+      <h4>Виртуальное окружение</h4>
       <div class="code-container">
 <code>python -m venv venv
 . venv/bin/activate
 pip install --upgrade pip</code>
       </div>
-      Установка нужных пакетов в окружение
+      <h4>Установка нужных пакетов в окружение</h4>
       <div class="code-container">
 <code>pip install django gunicorn psycopg2-binary djangorestframework drf-yasg</code>
       </div>
-      Заморозить пакеты
+      <h4>Заморозить пакеты</h4>
       <div class="code-container">
 <code>pip freeze -l > requirements.txt</code>
       </div>
-      Создание проекта
+      <h4>Создание проекта</h4>
       <div class="code-container">
 <code>django-admin startproject project</code>
       </div>
-      Вынести настройки в отдельную папку settings в project. В отдельном файле database.py добавить
+      <h4>Вынести настройки в отдельную папку settings в project. В отдельном файле database.py добавить</h4>
       <div class="code-container">
 <code>DATABASES = {
   'default': {
@@ -50,27 +50,29 @@ pip install --upgrade pip</code>
   }
 }</code>
       </div>
-      Создать файл .env.dev для переменных окружения примерного содержания
+      <h4>Создать файл .env.dev для переменных окружения примерного содержания</h4>
       <div class="code-container">
 <code>SECRET_KEY=key
 DEBUG=False
 ALLOWED_HOSTS=localhost 127.0.0.1
+
 POSTGRES_NAME=postgres
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres</code>
       </div>
-      Переместить BASE_DIR на уровень выше, прописать корректные SECRET_KEY, DEBUG, ALLOWED_HOSTS
+      <h4>Переместить BASE_DIR на уровень выше, прописать корректные SECRET_KEY, DEBUG, ALLOWED_HOSTS</h4>
       <div class="code-container">
 <code>SECRET_KEY = os.environ.get('SECRET_KEY', default='key')
 BASE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..')
 DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')</code>
       </div>
-      Создать Dockerfile
+      <h4>Создать Dockerfile</h4>
       <div class="code-container">
 <code>FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE 1
+
 RUN apt update \
     && apt upgrade \
     && apt install postgresql gcc python3-dev musl-dev -y
@@ -80,7 +82,7 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY ./project /project</code>
       </div>
-      Создать docker-compose.yaml
+      <h4>Создать docker-compose.yaml</h4>
       <div class="code-container">
 <code>services:
   app:
@@ -107,29 +109,31 @@ COPY ./project /project</code>
     volumes:
       - ./volumes/db/data:/var/lib/postgresql/data</code>
       </div>
-      Запустить контейнеры, применить миграции, скопировать статику в контейнер
+      <h4>Запустить контейнеры, применить миграции, скопировать статику в контейнер</h4>
       <div class="code-container">
 <code>./manage.py migrate
 ./manage.py collectstatic</code>
       </div>
-      Добавить в urls.py статику
+      <h4>Добавить в urls.py статику</h4>
       <div class="code-container">
 <code>urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</code>
       </div>
-      так же роут апи в urlpatterns
+      <h4>так же роут апи в urlpatterns</h4>
       <div class="code-container">
 <code>path('api/', include(('api.urls', 'api_v1')))</code>
       </div>
-      Прописать настройки статики и медиа файлов
+      <h4>Прописать настройки статики и медиа файлов</h4>
       <div class="code-container">
 <code>STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</code>
       </div>
-      Для аппов создать отдельную директорию apps на уровне с project.<br>
-      Для апи создать отдельную директорию api на уровне project. В нем создать urls.py со следующим содержимым
+      <h4>Для аппов создать отдельную директорию apps на уровне с project<br>
+        Для апи создать отдельную директорию api на уровне project<br>
+        В нем создать urls.py со следующим содержимым
+      </h4>
       <div class="code-container">
 <code>from django.urls import include, path
 from drf_yasg import openapi
@@ -200,6 +204,7 @@ class ArticleViewSet(ModelViewSet):
       <div class="code-container">
 <code>from rest_framework import serializers
 from apps.article.models import Article
+
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
