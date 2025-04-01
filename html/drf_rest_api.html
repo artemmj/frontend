@@ -18,7 +18,7 @@
       </ul>
     </div>
     <div id="article">
-      <h3>Настройка проекта Django/PostgreSQL/DRF/SWAGGER</h3>
+      <h2>Настройка проекта Django/PostgreSQL/DRF/SWAGGER</h2>
       <p>Виртуальное окружение</p>
       <div class="code-container">
 <code>python -m venv venv
@@ -27,7 +27,7 @@ pip install --upgrade pip</code>
       </div>
       <p>Установка нужных пакетов в окружение и заморозка пакетов в requirements.txt</p>
       <div class="code-container">
-<code>pip install django gunicorn psycopg2-binary djangorestframework drf-yasg
+<code>pip install django gunicorn psycopg2-binary djangorestframework drf-yasg django-cors-headers
 pip freeze -l > requirements.txt</code>
       </div>
       <br>
@@ -153,15 +153,37 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc'), name='schema-redoc'),
     path('', include((router.urls, 'api-root')), name='api-root'),
-    #path('celery/result/<pk>/', CeleryResultView.as_view()),
 ]</code>
       </div>
       <p>Прописать drf_yasg и rest_framework в INSTALLED_APPS. Свагер поднят и доступен по api/swagger/</p>
-      <p>Создать апп для статей</p>
+      <h3>Настройка CORS Headers</h3>
+      <p>Пакет django-cors-headers уже был установлен</p>
+      <p>Добавить 'corsheaders' в INSTALLED_APPS</p>
+      <p>Добавить 'corsheaders.middleware.CorsMiddleware' в MIDDLEWARE</p>
+      <p>Добавить настройки для CORS</p>
+      <div class="code-container">
+<code>CORS_ORIGIN_ALLOW_ALL = os.environ.get('CORS_ORIGIN_ALLOW_ALL', True)
+CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', [])
+CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'access-control-allow-origin',
+)</code>
+      </div>
+      <h3>Создание простого аппа для статей и апи</h3>
       <div class="code-container">
 <code>python project/manage.py startapp article</code>
       </div>
-      <p>В ArticleConfig прописать корректный путь "apps.article", прописать в settings/apps.py<br>
+      <p>В ArticleConfig прописать корректный путь "apps.article", прописать в INSTALLED_APPS<br>
         Удалить views.py и tests.py, написать простую модель статьи</p>
       <div class="code-container">
 <code>from django.db import models
