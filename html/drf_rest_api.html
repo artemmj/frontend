@@ -17,12 +17,198 @@
         <li><a href="drf_rest_api.html">Настройка Django для работы с REST API</a></li>
       </ul>
     </div>
+    <h3>Настройка проекта Django/PostgreSQL/DRF/SWAGGER</h3>
     <div id="article">
-        <div class="code-container">
-          <code>
-            drf rest api
-          </code>
-        </div>
+      Виртуальное окружение
+      <div class="code-container">
+<code>python -m venv venv
+. venv/bin/activate
+pip install --upgrade pip</code>
+      </div>
+      Установка нужных пакетов в окружение
+      <div class="code-container">
+<code>pip install django gunicorn psycopg2-binary djangorestframework drf-yasg</code>
+      </div>
+      Заморозить пакеты
+      <div class="code-container">
+<code>pip freeze -l > requirements.txt</code>
+      </div>
+      Создание проекта
+      <div class="code-container">
+<code>django-admin startproject project</code>
+      </div>
+      Вынести настройки в отдельную папку settings в project. В отдельном файле database.py добавить
+      <div class="code-container">
+<code>DATABASES = {
+  'default': {
+      'ENGINE': 'django.db.backends.postgresql',
+      'NAME': environ.get('POSTGRES_NAME'),
+      'USER': environ.get('POSTGRES_USER'),
+      'PASSWORD': environ.get('POSTGRES_PASSWORD'),
+      'HOST': 'db',
+      'PORT': 5432,
+  }
+}</code>
+      </div>
+      Создать файл .env.dev для переменных окружения примерного содержания
+      <div class="code-container">
+<code>SECRET_KEY=key
+DEBUG=False
+ALLOWED_HOSTS=localhost 127.0.0.1
+POSTGRES_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres</code>
+      </div>
+      Переместить BASE_DIR на уровень выше, прописать корректные SECRET_KEY, DEBUG, ALLOWED_HOSTS
+      <div class="code-container">
+<code>SECRET_KEY = os.environ.get('SECRET_KEY', default='key')
+BASE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..')
+DEBUG = os.environ.get('DEBUG') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')</code>
+      </div>
+      Создать Dockerfile
+      <div class="code-container">
+<code>FROM python:3.13-slim
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE 1
+RUN apt update \
+    && apt upgrade \
+    && apt install postgresql gcc python3-dev musl-dev -y
+WORKDIR /project
+COPY requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+COPY ./project /project</code>
+      </div>
+      Создать docker-compose.yaml
+      <div class="code-container">
+<code>services:
+  app:
+    container_name: app
+    build: .
+    command: gunicorn --bind 0.0.0.0:8000
+      --log-level debug
+      --reload
+      --workers 4 project.wsgi:application
+    volumes:
+      - ./project:/project
+      - ./volumes/media:/media
+      - ./volumes/static:/static
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  db:
+    container_name: database
+    image: postgres:17-alpine
+    env_file: .env.dev
+    volumes:
+      - ./volumes/db/data:/var/lib/postgresql/data</code>
+      </div>
+      Запустить контейнеры, применить миграции, скопировать статику в контейнер
+      <div class="code-container">
+<code>./manage.py migrate
+./manage.py collectstatic</code>
+      </div>
+      Добавить в urls.py статику
+      <div class="code-container">
+<code>urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</code>
+      </div>
+      так же роут апи в urlpatterns
+      <div class="code-container">
+<code>path('api/', include(('api.urls', 'api_v1')))</code>
+      </div>
+      Прописать настройки статики и медиа файлов
+      <div class="code-container">
+<code>STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</code>
+      </div>
+      Для аппов создать отдельную директорию apps на уровне с project.<br>
+      Для апи создать отдельную директорию api на уровне project. В нем создать urls.py со следующим содержимым
+      <div class="code-container">
+<code>from django.urls import include, path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions, routers
+
+router = routers.DefaultRouter()
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title='BACKEND API',
+        default_version='v1',
+        description='Routes of BACKEND',
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
+urlpatterns = [
+    path('swagger(<str:format>.json|.yaml)/', schema_view.without_ui(), name='schema-json'),
+    path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc'), name='schema-redoc'),
+    path('', include((router.urls, 'api-root')), name='api-root'),
+    #path('celery/result/<pk>/', CeleryResultView.as_view()),
+]</code>
+      </div>
+      Прописать drf_yasg и rest_framework в INSTALLED_APPS. Свагер поднят и доступен по api/swagger/.
+      Создать апп для статей
+      <div class="code-container">
+<code>python project/manage.py startapp article</code>
+      </div>
+      В ArticleConfig прописать корректный путь apps.article, прописать в settings/apps.py<br>
+      Удалить views.py и tests.py, прописать простую модель статьи
+      <div class="code-container">
+<code>from django.db import models
+
+class Article(models.Model):
+  created_at = models.DateTimeField(auto_now_add=True)
+  title = models.CharField('Заголовок статьи', max_length=127)
+  body = models.TextField('Тело статьи')
+
+  class Meta:
+    verbose_name = 'Статья'
+    verbose_name_plural = 'Статьи'</code>
+      </div>
+      Зарегистрировать модель в admin.py
+      <div class="code-container">
+<code>from django.contrib import admin
+
+from .models import Article
+
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at', 'title')</code>
+      </div>
+      Далее создать в директории api директорию article, в ней файлы views.py и serializers.py<br>
+      В views.py разместить примитивный вьюсет
+      <div class="code-container">
+<code>from rest_framework.viewsets import ModelViewSet
+from apps.article.models import Article
+from .serializers import ArticleSerializer
+
+class ArticleViewSet(ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer</code>
+      </div>
+      В serializers.py разместить простой сериалайзер статьи
+      <div class="code-container">
+<code>from rest_framework import serializers
+from apps.article.models import Article
+class ArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Article
+        fields = ('id', 'created_at', 'title', 'body')</code>
+      </div>
+      В urls.py в api зарегистрировать вьюсет, добавив
+      <div class="code-container">
+<code>router.register('article', ArticleViewSet, 'article')</code>
+      </div>
     </div>
     <div id="footer">
         <p>Copyright © aamakarenko.ru 2025</p>

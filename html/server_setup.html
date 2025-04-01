@@ -17,9 +17,9 @@
           <li><a href="drf_rest_api.html">Настройка Django для работы с REST API</a></li>
         </ul>
       </div>
+      <h3>Настройка сервера Linux (Ubuntu)</h3>
       <div id="article">
-          <h1>Настройка сервера Linux (Ubuntu)</h1>
-          <div class="code-container">
+        <div class="code-container">
 <code>sudo apt-get install -y vim \
   mosh \
   tmux \
@@ -61,11 +61,10 @@
   libjpeg-dev \
   libfreetype-dev \
   libcurl4-openssl-dev \
-  supervisor
-</code>
-          </div>
-          <h2>SSH</h2>
-          <div class="code-container">
+  supervisor</code>
+        </div>
+        SSH
+        <div class="code-container">
 <code>sudo vim /etc/ssh/sshd_config
 
 AllowUsers &lt;username&gt;
@@ -73,9 +72,9 @@ PermitRootLogin no
 PasswordAuthentication no
 
 sudo service ssh restart</code>
-          </div>
-          <h2>Oh-my-ZSH</h2>
-          <div class="code-container">
+        </div>
+        Oh-my-ZSH
+        <div class="code-container">
 <code>sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -83,11 +82,11 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"</code>
-          </div>
-          <p>Добавить <b>zsh-syntax-highlighting zsh-autosuggestions</b> в ~/.zshrc в plugins</p>
-          <p>Добавить <b>powerlevel10k/powerlevel10k</b> в ~/.zshrc ZSH_THEME</p>
-          <h2>Docker</h2>
-          <div class="code-container">
+        </div>
+        Добавить <b>zsh-syntax-highlighting zsh-autosuggestions</b> в ~/.zshrc в plugins<br>
+        Добавить <b>powerlevel10k/powerlevel10k</b> в ~/.zshrc ZSH_THEME
+        Docker
+        <div class="code-container">
 <code>sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -95,9 +94,9 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code>
-          </div>
-          <h2 id="nginx">Nginx</h2>
-          <div class="code-container">
+        </div>
+        Nginx
+        <div class="code-container">
 <code>sudo apt install ufw
 
 sudo nano /etc/ufw/applications.d/nginx.ini
@@ -121,7 +120,7 @@ sudo ufw enable
 sudo ufw allow &#39;Nginx Full&#39;
 sudo ufw allow &#39;OpenSSH&#39;
 sudo ufw status</code>
-          </div>
+        </div>
       </div>
       <div id="footer">
           <p>Copyright © aamakarenko.ru 2025</p>
