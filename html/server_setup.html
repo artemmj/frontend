@@ -70,8 +70,20 @@
 AllowUsers &lt;username&gt;
 PermitRootLogin no
 PasswordAuthentication no
+PubkeyAuthentication yes
+X11Forwarding no
+PermitEmptyPasswords no
 
-sudo service ssh restart</code>
+sudo apt install fail2ban
+
+sudo nano /etc/fail2ban/jail.local
+[sshd]
+enabled = true
+maxretry = 3
+findtime = 10m
+bantime = 1h
+
+systemctl restart sshd</code>
         </div>
         <h4>Oh-my-ZSH</h4>
         <div class="code-container">
