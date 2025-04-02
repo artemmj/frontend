@@ -47,16 +47,6 @@ pip freeze -l > requirements.txt</code>
   }
 }</code>
       </div>
-      <p>Создать файл .env.dev для переменных окружения</p>
-      <div class="code-container">
-<code>SECRET_KEY=key
-DEBUG=False
-ALLOWED_HOSTS=localhost 127.0.0.1
-
-POSTGRES_NAME=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres</code>
-      </div>
       <p>Переместить BASE_DIR на уровень выше, прописать корректные SECRET_KEY, DEBUG, ALLOWED_HOSTS</p>
       <div class="code-container">
 <code>SECRET_KEY = os.environ.get('SECRET_KEY', default='key')
@@ -105,6 +95,16 @@ COPY ./project /project</code>
     env_file: .env.dev
     volumes:
       - ./volumes/db/data:/var/lib/postgresql/data</code>
+      </div>
+      <p>Создать файл .env.dev для переменных окружения</p>
+      <div class="code-container">
+<code>SECRET_KEY=key
+DEBUG=False
+ALLOWED_HOSTS=localhost 127.0.0.1
+
+POSTGRES_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres</code>
       </div>
       <p>Запустить контейнеры, применить миграции, скопировать статику в контейнер</p>
       <div class="code-container">
@@ -195,44 +195,34 @@ class Article(models.Model):
 
   class Meta:
     verbose_name = 'Статья'
-    verbose_name_plural = 'Статьи'</code>
-      </div>
-      <p>Зарегистрировать модель в admin.py</p>
-      <div class="code-container">
-<code>from django.contrib import admin
+    verbose_name_plural = 'Статьи'
 
-from .models import Article
+# Далее создать в директории api директорию article, в ней файлы views.py и serializers.py
 
-@admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at', 'title')</code>
-      </div>
-      <p>Далее создать в директории api директорию article, в ней файлы views.py и serializers.py<br><br>
-        В views.py разместить примитивный вьюсет</p>
-      <div class="code-container">
-<code>from rest_framework.viewsets import ModelViewSet
+# views.py
+
+from rest_framework.viewsets import ModelViewSet
 from apps.article.models import Article
 from .serializers import ArticleSerializer
 
 class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
-    serializer_class = ArticleSerializer</code>
-      </div>
-      <p>В serializers.py разместить простой сериалайзер статьи</p>
-      <div class="code-container">
-<code>from rest_framework import serializers
+    serializer_class = ArticleSerializer
+
+# serializers.py
+
+from rest_framework import serializers
 from apps.article.models import Article
 
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = ('id', 'created_at', 'title', 'body')</code>
+        fields = ('id', 'created_at', 'title', 'body')
+
+# В urls.py в api зарегистрировать вьюсет
+
+router.register('article', ArticleViewSet, 'article')</code>
       </div>
-      <p>В urls.py в api зарегистрировать вьюсет, добавив</p>
-      <div class="code-container">
-<code>router.register('article', ArticleViewSet, 'article')</code>
-      </div>
-      <p>Простейший макет для Django-приложения под RestAPI в Docker с PostgreSQL готов!</p>
     </div>
     <div id="footer">
         <p>Copyright © aamakarenko.ru 2025</p>
