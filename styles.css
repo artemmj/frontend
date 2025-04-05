@@ -1,54 +1,293 @@
+/* Основные CSS-переменные для тем */
+:root {
+    /* Цвета для светлой темы */
+    --primary-light: #f0f0f0;       /* Основной фон */
+    --secondary-light: #ffffff;     /* Вторичный фон (карточки, хедер) */
+    --text-light: #333333;          /* Цвет текста */
+    --accent-light: #007bff;        /* Акцентный цвет (кнопки, заголовки) */
+    
+    /* Цвета для темной темы */
+    --primary-dark: #1a1a1a;        /* Основной фон темной темы */
+    --secondary-dark: #2d2d2d;       /* Вторичный фон темной темы */
+    --text-dark: #e0e0e0;           /* Цвет текста темной темы */
+    --accent-dark: #00ff88;          /* Акцентный цвет темной темы */
+    
+    /* Текущие используемые переменные (по умолчанию светлая тема) */
+    --primary: var(--primary-light);
+    --secondary: var(--secondary-light);
+    --text: var(--text-light);
+    --accent: var(--accent-light);
+}
+
+/* Общие стили для всех элементов */
 * {
-    box-sizing: border-box;
+    margin: 0;                      /* Сброс стандартных отступов */
+    padding: 0;                     /* Сброс стандартных паддингов */
+    box-sizing: border-box;         /* Правильный расчет размеров элементов */
+    transition: all 0.3s ease;      /* Плавные переходы для анимаций */
 }
+
+/* Стилизация основного тела страницы */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Segoe UI', sans-serif; /* Современный шрифт */
+    background-color: var(--primary);    /* Динамический фон через переменные */
+    color: var(--text);                  /* Динамический цвет текста */
+    line-height: 1.6;                    /* Удобочитаемый межстрочный интервал */
 }
 
-#header {
-    border: 2px solid black;
-}
-#header h2 {
-    padding-left: 20px;
-}
-
-#nav {
-    background-color: #c6dab8;
-    border: 2px solid black;
-    padding: 1px;
-    margin-top: 2px;
-}
-#nav li {
-    margin-top: 5px;
+/* Автоматическое определение системной темы */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Переопределение переменных для темной темы */
+        --primary: var(--primary-dark);
+        --secondary: var(--secondary-dark);
+        --text: var(--text-dark);
+        --accent: var(--accent-dark);
+    }
 }
 
-#footer{
-    background-color: azure;
-    border: 2px solid black;
-    padding: 10px;
-    margin-top: 2px;
+/* Класс для принудительной темной темы */
+.dark-theme {
+    --primary: var(--primary-dark) !important;
+    --secondary: var(--secondary-dark) !important;
+    --text: var(--text-dark) !important;
+    --accent: var(--accent-dark) !important;
 }
 
-#article{
-    background-color: rgb(239, 237, 237);
-    border: 2px solid black;
-    padding: 10px;
-    margin-top: 2px;
+/* Стилизация хедера */
+header {
+    background: var(--secondary);       /* Фон из переменных */
+    padding: 1rem;                      /* Внутренние отступы */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Тень для глубины */
+    position: fixed;                    /* Фиксированное позиционирование */
+    width: 100%;                        /* На всю ширину экрана */
+    top: 0;                             /* Прижатие к верху */
+    z-index: 1000;                      /* Поверх остальных элементов */
 }
 
-.code-container {
-    background-color: #2d2d2d;
-    padding: 5px;
-    padding-bottom: 20px;
-    padding-left: 15px;
+/* Навигационная панель */
+nav {
+    max-width: 1200px;                  /* Ограничение ширины */
+    margin: 0 auto;                     /* Центрирование */
+    display: flex;                      /* Flex-раскладка */
+    justify-content: space-between;     /* Распределение пространства */
+    align-items: center;                /* Выравнивание по центру */
+}
+
+/* Стили логотипа */
+.logo {
+    font-size: 1.5rem;                  /* Размер шрифта */
+    font-weight: bold;                  /* Жирное начертание */
+    color: var(--accent);               /* Акцентный цвет */
+    text-decoration: none;              /* Убрать подчеркивание */
+    animation: logo-float 3s ease-in-out infinite; /* Анимация парения */
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: var(--accent);          /* Акцентный фон */
+    border: none;                       /* Без рамки */
+    padding: 0.5rem 1rem;               /* Внутренние отступы */
+    border-radius: 20px;                /* Закругленные углы */
+    cursor: pointer;                    /* Курсор-указатель */
+    color: var(--secondary);            /* Цвет текста из переменных */
+    font-weight: bold;                  /* Жирный текст */
+}
+
+/* Основной контент */
+main {
+    max-width: 1200px;                  /* Ограничение ширины */
+    margin: 100px auto 40px;            /* Отступы сверху/снизу и центрирование */
+    padding: 0 20px;                    /* Боковые отступы */
+}
+
+/* Сетка карточек статей */
+.posts-grid {
+    display: grid;                      /* CSS Grid раскладка */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивные колонки */
+    gap: 2rem;                         /* Расстояние между карточками */
+    padding: 2rem 0;                   /* Вертикальные отступы */
+}
+
+/* Стили карточки статьи */
+.post-card {
+    background: var(--secondary);       /* Фон карточки */
+    border-radius: 15px;               /* Закругленные углы */
+    padding: 1.5rem;                    /* Внутренние отступы */
+    cursor: pointer;                   /* Курсор-указатель */
+    transform: translateY(0);          /* Начальное положение для анимации */
+    animation: card-entrance 0.5s ease-out forwards; /* Анимация появления */
+    opacity: 0;                        /* Начальная прозрачность для анимации */
+}
+
+/* Эффекты при наведении на карточку */
+.post-card:hover {
+    transform: translateY(-5px);       /* Поднятие карточки */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Тень при наведении */
+}
+
+/* Заголовок статьи */
+.post-card h2 {
+    color: var(--accent);              /* Акцентный цвет */
+    margin-bottom: 0.5rem;             /* Отступ снизу */
+}
+
+/* Дата публикации */
+.post-date {
+    font-size: 0.9rem;                 /* Размер шрифта */
+    color: var(--text);                /* Цвет из переменных */
+    opacity: 0.7;                      /* Полупрозрачность */
+    margin-bottom: 1rem;               /* Отступ снизу */
+}
+
+/* Стили футера */
+footer {
+    background: var(--secondary);       /* Фон из переменных */
+    text-align: center;                /* Выравнивание по центру */
+    padding: 2rem;                     /* Внутренние отступы */
+    margin-top: 4rem;                  /* Отступ сверху */
+}
+
+/* Анимация парящего логотипа */
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0); } /* Начальная и конечная точки */
+    50% { transform: translateY(-5px); }   /* Средняя точка анимации */
+}
+
+/* Анимация появления карточек */
+@keyframes card-entrance {
+    from {
+        opacity: 0;                   /* Начальная прозрачность */
+        transform: translateY(20px);   /* Начальное положение */
+    }
+    to {
+        opacity: 1;                    /* Конечная прозрачность */
+        transform: translateY(0);      /* Конечное положение */
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .posts-grid {
+        grid-template-columns: 1fr;    /* Одна колонка на малых экранах */
+    }
+}
+
+/* Контейнер статьи */
+.article-container {
+    max-width: 800px;
+    margin: 100px auto 40px;
+    padding: 2rem;
+    background: var(--secondary);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    animation: card-entrance 0.5s ease-out;
+}
+
+/* Заголовок статьи */
+.article-title {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+}
+
+/* Мета-информация */
+.article-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+/* Блоки с кодом */
+.code-block {
+    background: var(--primary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+    position: relative;
     overflow-x: auto;
-    font-size: 15px;
-    line-height: 1.2;
-    white-space: pre-wrap;
-    box-shadow: rgba(0, 0, 0, 0.2);
 }
 
-.code-container code {
-    color: #66d9ef;
+.code-block pre {
+    color: var(--accent);
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+}
+
+/* Подсветка синтаксиса */
+.code-block .command {
+    color: var(--accent);
+}
+
+.code-block .comment {
+    color: #888;
+    font-style: italic;
+}
+
+/* Блоки конфигурации */
+.config-block {
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    background: var(--primary);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* Подзаголовки разделов */
+.section-title {
+    color: var(--accent);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px dashed var(--accent);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .article-container {
+        margin: 80px 15px 40px;
+        padding: 1rem;
+    }
+    
+    .article-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Специальный стиль для Docker-конфигов */
+.docker-block {
+    background: var(--primary);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    position: relative;
+    overflow-x: auto;
+}
+
+.docker-block::before {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: var(--secondary);
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+/* Стили для файловых путей */
+.file-path {
+    color: var(--accent);
     font-family: monospace;
+    padding: 0.2rem 0.4rem;
+    background: var(--primary);
+    border-radius: 4px;
+    margin: 0.5rem 0;
+    display: inline-block;
 }

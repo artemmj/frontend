@@ -1,25 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles.css" rel="stylesheet">
-    <title>aamakarenko.ru</title>
-  </head>
-  <body>
-    <div id="header">
-      <h2>aamakarenko.ru</h2>
-    </div>
-    <div id="nav">
-      <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="html/server_setup.html">Настройка сервера Linux (Ubuntu)</a></li>
-        <li><a href="html/drf_rest_api.html">Настройка Django для работы с REST API</a></li>
-        <li><a href="html/django_jwt_auth.html">Настройка JWT аутентификации в Django</a></li>
-      </ul>
-    </div>
-    <div id="footer">
-      <p>Copyright © aamakarenko.ru 2025</p>
-    </div>
-  </body>
+    <title>Главная | aamakarenko.ru</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo"> > aamakarenko.ru</a>
+            <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓</button> -->
+        </nav>
+    </header>
+
+    <main>
+        <div class="posts-grid" id="postsContainer">
+            <!-- Карточки статей будут добавлены через JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 aamakarenko.ru. Все права защищены</p>
+        <p>Код с любовью ❤️</p>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+      // Генерация карточек статей
+    const posts = [
+        {
+            link: "html/server_setup.html",
+            title: "Настройка сервера Linux (Ubuntu)",
+            date: "15 Марта 2025",
+            content: "Пакеты, команды, программы и их настройки, которые пригодятся при поднятии локального сервера Ubuntu."
+        },
+        {
+            link: "html/drf_rest_api.html",
+            title: "Настройка Django для работы с REST API",
+            date: "18 Марта 2025",
+            content: "Заметка-шпагралка по поднятию проекта Django - подключение PostgreSQL, оборачивание в Docker-контейнер, настройка CORS, Swagger."
+        },
+        // {
+        //     link: "html/django_jwt_auth.html",
+        //     title: "Настройка JWT аутентификации в Django",
+        //     date: "25 Марта 2025",
+        //     content: ""
+        // }
+    ];
+
+    const postsContainer = document.getElementById('postsContainer');
+
+    posts.forEach((post, index) => {
+        const card = document.createElement('article');
+        card.className = 'post-card';
+        card.innerHTML = `
+            <a href="${post.link}">
+            <h2>${post.title}</h2>
+            </a>
+            <p class="post-date">${post.date}</p>
+            <p>${post.content}</p>
+        `;
+        card.style.animationDelay = `${index * 0.1}s`;
+        postsContainer.appendChild(card);
+    });
+    </script>
+</body>
 </html>
