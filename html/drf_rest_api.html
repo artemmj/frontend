@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Настройка Django/PostgreSQL/DRF | aamakarenko.ru</title>
-    <link href="../styles.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Настройка Django/PostgreSQL/DRF | aamakarenko.ru</title>
+  <link href="../styles.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="../index.html" class="logo"> >> aamakarenko.ru</a>
-            <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button> -->
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <a href="../index.html" class="logo"> >> aamakarenko.ru</a>
+      <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button> -->
+    </nav>
+  </header>
 
-    <main>
-        <article class="article-container">
-            <h1 class="article-title">Настройка проекта Django (Docker PostgreSQL DRF SWAGGER)</h1>
-            <div class="article-meta">
-                <span>📅 20 Марта 2024</span>
-                <span>🏷️ Django, Docker, Django Rest Framework, API, Swagger, CORS</span>
-            </div>
-
-            <h3 class="section-title">Инициализация проекта</h3>
-            <div class="command-block">
-                <pre><code class="command">python -m venv venv
+  <main>
+    <article class="article-container">
+      <h1 class="article-title">Настройка проекта Django (Docker PostgreSQL DRF SWAGGER)</h1>
+      <div class="article-meta">
+          <span>📅 20 Марта 2024</span>
+          <span>🏷️ Django, Docker, Django Rest Framework, API, Swagger, CORS</span>
+      </div>
+      <h3 class="section-title">Инициализация проекта</h3>
+      <div class="command-block">
+          <pre><code class="command">python -m venv venv
 source venv/bin/activate
 pip install --upgrade pip</code></pre>
-            </div>
-
-            <h3 class="section-title">Установка пакетов</h3>
-            <div class="command-block">
-                <pre><code class="command">pip install django gunicorn psycopg2-binary djangorestframework drf-yasg django-cors-headers
+      </div>
+      <h3 class="section-title">Установка пакетов</h3>
+      <div class="command-block">
+          <pre><code class="command">pip install django gunicorn psycopg2-binary djangorestframework drf-yasg django-cors-headers
 pip freeze -l > requirements.txt</code></pre>
-            </div>
-
-            <h3 class="section-title">Конфигурация БД и другие настройки</h3>
-            <p>Вынести настройки в отдельную директорию в project</p>
-            <div class="text-block">
-              <div class="file-path">settings.py</div>
-              <pre>DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': environ.get('POSTGRES_NAME'),
-        'USER': environ.get('POSTGRES_USER'),
-        'PASSWORD': environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        'PORT': 5432,
-    }
+      </div>
+      <h3 class="section-title">Конфигурация БД и другие настройки</h3>
+      <p>Вынести настройки в отдельную директорию в project</p>
+      <div class="text-block">
+        <div class="file-path">settings.py</div>
+        <pre>DATABASES = {
+'default': {
+  'ENGINE': 'django.db.backends.postgresql',
+  'NAME': environ.get('POSTGRES_NAME'),
+  'USER': environ.get('POSTGRES_USER'),
+  'PASSWORD': environ.get('POSTGRES_PASSWORD'),
+  'HOST': 'db',
+  'PORT': 5432,
+}
 }
 
 
@@ -56,85 +53,82 @@ BASE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..')
 DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')
 </pre>
-            </div>
-            <h3 class="section-title">Docker-конфигурация</h3>
-            <div class="text-block">
-                <div class="file-path">Dockerfile</div>
-                <pre><code>FROM python:3.13-slim
+      </div>
+      <h3 class="section-title">Docker-конфигурация</h3>
+      <div class="text-block">
+          <div class="file-path">Dockerfile</div>
+          <pre><code>FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE 1
 
 RUN apt update \
-    && apt upgrade \
-    && apt install postgresql gcc python3-dev musl-dev -y
+&& apt upgrade \
+&& apt install postgresql gcc python3-dev musl-dev -y
 WORKDIR /project
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 COPY ./project /project</code></pre>
-            </div>
-
-            <div class="text-block">
-                <div class="file-path">docker-compose.yaml</div>
-                <pre><code>services:
+      </div>
+      <div class="text-block">
+          <div class="file-path">docker-compose.yaml</div>
+          <pre><code>services:
 app:
-  container_name: app
-  build: .
-  command: gunicorn --bind 0.0.0.0:8000
-    --log-level debug
-    --reload
-    --workers 4 project.wsgi:application
-  volumes:
-    - ./project:/project
-    - ./volumes/media:/media
-    - ./volumes/static:/static
-  ports:
-    - 8000:8000
-  env_file:
-    - ./.env.dev
-  depends_on:
-    - db
+container_name: app
+build: .
+command: gunicorn --bind 0.0.0.0:8000
+--log-level debug
+--reload
+--workers 4 project.wsgi:application
+volumes:
+- ./project:/project
+- ./volumes/media:/media
+- ./volumes/static:/static
+ports:
+- 8000:8000
+env_file:
+- ./.env.dev
+depends_on:
+- db
 db:
-  container_name: database
-  image: postgres:17-alpine
-  env_file: .env.dev
-  volumes:
-    - ./volumes/db/data:/var/lib/postgresql/data</code></pre>
-            </div>
-
-            <h3 class="section-title">Настройки окружения</h3>
-            <div class="text-block">
-                <div class="file-path">.env.dev</div>
-                <pre>SECRET_KEY=key
+container_name: database
+image: postgres:17-alpine
+env_file: .env.dev
+volumes:
+- ./volumes/db/data:/var/lib/postgresql/data</code></pre>
+      </div>
+      <h3 class="section-title">Настройки окружения</h3>
+      <div class="text-block">
+          <div class="file-path">.env.dev</div>
+          <pre>SECRET_KEY=key
 DEBUG=False
 ALLOWED_HOSTS=localhost 127.0.0.1
 
 POSTGRES_NAME=postgres
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres</pre>
-            </div>
-
-            <h3 class="section-title">Настройка статики и Swagger</h3>
-            Добавить статику и роут апи в urlpatterns
-            <div class="text-block">
-              <div class="file-path">urls.py</div>
-              <pre>path('api/', include(('api.urls', 'api_v1')))
+      </div>
+      <h3 class="section-title">Настройка статики и Swagger</h3>
+      Добавить статику и роут апи в urlpatterns
+      <div class="text-block">
+        <div class="file-path">urls.py</div>
+        <pre>path('api/', include(('api.urls', 'api_v1')))
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</pre>
-            </div>
-            Прописать настройки статики и медиа файлов
-            <div class="text-block">
-              <div class="file-path">settings.py</div>
-              <pre>STATIC_URL = '/static/'
+      </div>
+      Прописать настройки статики и медиа файлов
+      <div class="text-block">
+        <div class="file-path">settings.py</div>
+        <pre>STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</pre>
-            </div>
-            В отдельной директории api создать urls.py
-            <div class="text-block">
-              <div class="file-path">urls.py</div>
-              <pre>from django.urls import include, path
+      </div>
+      В отдельной директории api создать urls.py
+      <div class="text-block">
+        <div class="file-path">urls.py</div>
+        <pre>from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, routers
@@ -142,29 +136,29 @@ from rest_framework import permissions, routers
 router = routers.DefaultRouter()
 
 schema_view = get_schema_view(
-    openapi.Info(
-        title='BACKEND API',
-        default_version='v1',
-        description='Routes of BACKEND',
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
+openapi.Info(
+  title='BACKEND API',
+  default_version='v1',
+  description='Routes of BACKEND',
+),
+public=True,
+permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
-    path('swagger(.json|.yaml)/', schema_view.without_ui(), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc'), name='schema-redoc'),
-    path('', include((router.urls, 'api-root')), name='api-root'),
+path('swagger(.json|.yaml)/', schema_view.without_ui(), name='schema-json'),
+path('swagger/', schema_view.with_ui('swagger'), name='schema-swagger-ui'),
+path('redoc/', schema_view.with_ui('redoc'), name='schema-redoc'),
+path('', include((router.urls, 'api-root')), name='api-root'),
 ]</pre>
-            </div>
-            <h3 class="section-title">CORS</h3>
-            <div class="text-block">
-              <div class="file-path">settings.py</div>
-              <pre>installed_apps = {
-  ...
-  corsheaders,
-  ...
+      </div>
+      <h3 class="section-title">CORS</h3>
+      <div class="text-block">
+        <div class="file-path">settings.py</div>
+        <pre>installed_apps = {
+...
+corsheaders,
+...
 }
 
 CORS_ORIGIN_ALLOW_ALL = os.environ.get('CORS_ORIGIN_ALLOW_ALL', True)
@@ -172,25 +166,25 @@ CORS_ORIGIN_WHITELIST = os.environ.get('CORS_ORIGIN_WHITELIST', [])
 CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-    'access-control-allow-origin',
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+'access-control-allow-origin',
 )</pre>
-            </div>
-        </article>
-    </main>
+      </div>
+    </article>
+  </main>
 
-    <footer>
-      <p>© 2025 aamakarenko.ru</p>
-        <p>Код с любовью ❤️</p>
-    </footer>
-    <script src="../script.js"></script>
+  <footer>
+    <p>© 2025 aamakarenko.ru</p>
+      <p>Код с любовью ❤️</p>
+  </footer>
+  <script src="../script.js"></script>
 </body>
 </html>

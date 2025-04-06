@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Настройка Django/PostgreSQL/DRF | aamakarenko.ru</title>
   <link href="../styles.css" rel="stylesheet">
-  <link href=../main.css" rel="stylesheet">
 </head>
 <body>
   <header>
-      <nav>
-          <a href="../index.html" class="logo"> >> aamakarenko.ru</a>
-          <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button> -->
-      </nav>
+    <nav>
+      <a href="../index.html" class="logo"> >> aamakarenko.ru</a>
+      <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button> -->
+    </nav>
   </header>
+
   <main>
     <article class="article-container">
       <h1 class="article-title">Настройка JWT аутентификации в Django</h1>
@@ -93,7 +93,7 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.save()
         return user</code></pre>
-        </div>
+      </div>
       <p>В settings указать модель юзера, провести миграцию, зарегистрировать юзера в admin.py</p>
       <div class="command-block"><pre><code class="command">AUTH_USER_MODEL = 'user.User'</code></pre></div>
       <h3 class="section-title">Регистрация новых пользователей</h3>
@@ -281,8 +281,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
     ...
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.user.backends.JWTAuthentication',
-    ),
-}</code></pre>
+    ),}</code></pre>
     </div>
     </article>
   </main>
