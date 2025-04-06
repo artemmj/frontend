@@ -183,7 +183,7 @@ footer {
 /* Основной контейнер для статьи */
 .article-container {
     /* Ограничение максимальной ширины контента */
-    max-width: 1000px;
+    max-width: 1100px;
     
     /* Вертикальные отступы + автоматическое центрирование по горизонтали */
     margin: 100px auto 40px;
@@ -226,89 +226,67 @@ footer {
 .article-meta {
     /* Гибкий контейнер для элементов в строку */
     display: flex;
-    
     /* Расстояние между дочерними элементами */
     gap: 1rem;
-    
     /* Отступ снизу для разделения с контентом */
     margin-bottom: 2rem;
-    
     /* Полупрозрачность для второстепенной информации */
     opacity: 0.8;
-    
     /* Уменьшенный размер шрифта */
     font-size: 0.9rem;
 }
 
-/* Общий стиль для блоков с кодом */
-.code-block {
-    /* Фон из первичной переменной темы */
-    background: var(--primary);
-    
-    /* Внутренние отступы */
-    padding: 1.5rem;
-    
-    /* Закругление углов блока */
-    border-radius: 10px;
-    
-    /* Вертикальные отступы от соседних элементов */
-    margin: 1.5rem 0;
-    
-    /* Контекст позиционирования для псевдоэлементов */
-    position: relative;
-    
-    /* Горизонтальный скролл при переполнении контента */
-    overflow-x: auto;
+/* Стили для основного контейнера <pre> */
+.command-block {
+    background: #2d2d2d; /* Темный фон для контраста */
+    border-radius: 8px; /* Закругленные углы */
+    padding: 20px; /* Внутренние отступы */
+    margin: 1.5em 0; /* Внешние отступы сверху/снизу */
+    overflow-x: auto; /* Горизонтальный скролл при переполнении */
+    font-family: monospace; /* Моноширинный шрифт */
+    font-size: 13px; /* Размер текста */
+    line-height: 1.6; /* Межстрочный интервал */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Тень для глубины */
+    border: 1px solid #404040; /* Граница */
 }
 
-/* Стилизация текста внутри блоков кода */
-.code-block pre {
-    /* Цвет текста из акцентной переменной */
-    color: var(--accent);
-    
-    /* Удаление стандартных отступов */
-    margin: 0;
-    
-    /* Моноширинный шрифт для кода */
-    font-family: 'Courier New', monospace;
-    
-    /* Сохранение пробелов и переносов с обтеканием */
-    white-space: pre-wrap;
+/* Стили для тега <code> */
+.command-block code {
+    display: block; /* Блочное отображение */
+    color: #00ff9d; /* Основной цвет текста */
 }
 
-/* Специальные классы для подсветки синтаксиса */
-.code-block .command {
-    /* Акцентный цвет для команд */
-    color: var(--accent);
-}
-.code-block .comment {
-    /* Серый цвет для комментариев */
-    color: #888;
-    
-    /* Курсивное начертание */
-    font-style: italic;
+/* Анимация при наведении на блок */
+.command-block:hover {
+    transform: translateY(-2px); /* Сдвиг вверх */
+    transition: transform 0.2s ease; /* Плавный переход */
 }
 
-/* Стиль для конфигурационных блоков */
-.config-block {
+/* Стили для скроллбара (для Chrome/Edge) */
+.command-block::-webkit-scrollbar {
+    height: 8px; /* Высота скроллбара */
+}
+
+.command-block::-webkit-scrollbar-thumb {
+    background: #555; /* Цвет "ползунка" */
+    border-radius: 4px; 
+}
+
+/* Стиль для общих текстовых блоков */
+.text-block {
+    color: rgb(0, 0, 0);
     /* Акцентная полоса слева */
     border-left: 4px solid var(--accent);
-    
     /* Отступ от левой границы */
     padding-left: 1rem;
-    
     /* Вертикальные отступы */
     margin: 1.5rem 0;
-    
     /* Фон из первичной переменной */
-    background: var(--primary);
-    
+    background: rgb(211, 229, 240);
     /* Внутренние отступы */
     padding: 1rem;
-    
     /* Закругление углов */
     border-radius: 5px;
-    
     /* Горизонтальный скролл при необходимости */
     overflow-x: auto;
 }
@@ -317,13 +295,10 @@ footer {
 .section-title {
     /* Акцентный цвет текста */
     color: var(--accent);
-    
     /* Отступы: сверху 2rem, снизу 1rem */
     margin: 2rem 0 1rem;
-    
     /* Отступ для визуального разделения линии */
     padding-bottom: 0.3rem;
-    
     /* Пунктирная акцентная линия снизу */
     border-bottom: 1px dashed var(--accent);
 }
@@ -333,7 +308,6 @@ footer {
     .article-container {
         /* Уменьшенные отступы и адаптивная ширина */
         margin: 80px 15px 40px;
-        
         /* Меньшие внутренние отступы */
         padding: 1rem;
     }
