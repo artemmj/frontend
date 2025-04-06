@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Настройка Django/PostgreSQL/DRF | DevBlog</title>
+    <title>Настройка Django/PostgreSQL/DRF | aamakarenko.ru</title>
     <link href="../styles.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
-            <a href="../index.html" class="logo"> > aamakarenko.ru</a>
+            <a href="../index.html" class="logo"> >> aamakarenko.ru</a>
             <!-- <button class="theme-toggle" onclick="toggleTheme()">🌓 Сменить тему</button> -->
         </nav>
     </header>
@@ -58,7 +58,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')
 </pre>
             </div>
             <h3 class="section-title">Docker-конфигурация</h3>
-            <div class="docker-block">
+            <div class="config-block">
                 <div class="file-path">Dockerfile</div>
                 <pre><code>FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
@@ -74,7 +74,7 @@ RUN pip install -r requirements.txt
 COPY ./project /project</code></pre>
             </div>
 
-            <div class="docker-block">
+            <div class="config-block">
                 <div class="file-path">docker-compose.yaml</div>
                 <pre><code>services:
 app:
