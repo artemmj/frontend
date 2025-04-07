@@ -112,7 +112,10 @@ POSTGRES_PASSWORD=postgres</code></pre>
       Добавить статику и роут апи в urlpatterns
       <div class="text-block">
         <div class="file-path">urls.py</div>
-        <pre><code class="lang-py">path('api/', include(('api.urls', 'api_v1')))
+        <pre><code class="lang-py">from django.conf import settings
+from django.conf.urls.static import static
+
+path('api/', include(('api.urls', 'api_v1')))
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)</code></pre>
