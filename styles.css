@@ -155,31 +155,6 @@ footer {
   margin-top: 4rem;                  /* Отступ сверху */
 }
 
-/* Анимация парящего логотипа */
-@keyframes logo-float {
-  0%, 100% { transform: translateY(0); } /* Начальная и конечная точки */
-  50% { transform: translateY(-5px); }   /* Средняя точка анимации */
-}
-
-/* Анимация появления карточек */
-@keyframes card-entrance {
-  from {
-      opacity: 0;                   /* Начальная прозрачность */
-      transform: translateY(20px);   /* Начальное положение */
-  }
-  to {
-      opacity: 1;                    /* Конечная прозрачность */
-      transform: translateY(0);      /* Конечное положение */
-  }
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .posts-grid {
-      grid-template-columns: 1fr;    /* Одна колонка на малых экранах */
-  }
-}
-
 /* Основной контейнер для статьи */
 .article-container {
   /* Ограничение максимальной ширины контента */
@@ -240,22 +215,6 @@ footer {
   border: 1px solid #404040; /* Граница */
 }
 
-/* Анимация при наведении на блок */
-.command-block:hover {
-  transform: translateY(-2px); /* Сдвиг вверх */
-  transition: transform 0.2s ease; /* Плавный переход */
-}
-
-/* Стили для скроллбара (для Chrome/Edge) */
-.command-block::-webkit-scrollbar {
-  height: 8px; /* Высота скроллбара */
-}
-
-.command-block::-webkit-scrollbar-thumb {
-  background: #555; /* Цвет "ползунка" */
-  border-radius: 4px; 
-}
-
 /* Стиль для общих текстовых блоков */
 .text-block {
   color: rgb(0, 0, 0);
@@ -287,24 +246,6 @@ footer {
   border-bottom: 1px dashed var(--accent);
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  main {
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  .article-container {
-    /* Уменьшенные отступы и адаптивная ширина */
-    margin: 1px;
-    /* Меньшие внутренние отступы */
-    padding: 1rem;
-  }
-  .article-title {
-    /* Уменьшенный размер шрифта */
-    font-size: 1.5rem;
-  }
-}
-
 /* Стилизация путей к файлам */
 .file-path {
   /* Акцентный цвет текста */
@@ -321,4 +262,49 @@ footer {
   margin: 0.5rem 0;
   /* Строчно-блочное отображение */
   display: inline-block;
+}
+
+/* Анимация при наведении на блок */
+/* pre:hover {
+  transform: translateY(-1px); /* Сдвиг вверх
+  transition: transform 0.2s ease; /* Плавный переход
+}
+
+/* Анимация парящего логотипа */
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0); } /* Начальная и конечная точки */
+  50% { transform: translateY(-5px); }   /* Средняя точка анимации */
+}
+
+/* Анимация появления карточек */
+@keyframes card-entrance {
+  from {
+      opacity: 0;                   /* Начальная прозрачность */
+      transform: translateY(20px);   /* Начальное положение */
+  }
+  to {
+      opacity: 1;                    /* Конечная прозрачность */
+      transform: translateY(0);      /* Конечное положение */
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  main {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .article-container {
+    /* Уменьшенные отступы и адаптивная ширина */
+    margin: 1px;
+    /* Меньшие внутренние отступы */
+    padding: 1rem;
+  }
+  .article-title {
+    /* Уменьшенный размер шрифта */
+    font-size: 1.5rem;
+  }
+  .posts-grid {
+    grid-template-columns: 1fr;    /* Одна колонка на малых экранах */
+  }
 }

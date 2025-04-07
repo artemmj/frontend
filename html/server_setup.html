@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../styles.css" rel="stylesheet">
   <title>Настройка сервера Linux | aamakarenko.ru</title>
+  <link href="../styles.css" rel="stylesheet">
   <link href="../prism/prism-okaidia.min.css" rel="stylesheet">
 </head>
 <body>
@@ -32,20 +32,20 @@ libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype-dev libcurl4-openssl-
         <pre><code class="lang-bash">vim /etc/ssh/sshd_config</code></pre>
         <div class="text-block">
           <pre><code>AllowUsers &lt;username&gt;
-  PermitRootLogin no
-  PasswordAuthentication no
-  PubkeyAuthentication yes
-  X11Forwarding no
-  PermitEmptyPasswords no</code></pre>
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+X11Forwarding no
+PermitEmptyPasswords no</code></pre>
         </div>
         <pre><code class="lang-bash">sudo apt install fail2ban</code></pre>
         <pre><code class="lang-bash">sudo nano /etc/fail2ban/jail.local</code></pre>
         <div class="text-block">
           <pre><code>[sshd]
-  enabled = true
-  maxretry = 3
-  findtime = 10m
-  bantime = 1h</code></pre>
+enabled = true
+maxretry = 3
+findtime = 10m
+bantime = 1h</code></pre>
         </div>
         <pre><code class="lang-bash">sudo systemctl restart sshd</code></pre>
 
