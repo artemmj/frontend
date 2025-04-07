@@ -30,13 +30,19 @@ pip install --upgrade pip</code></pre>
 
       <h3 class="section-title">Установка пакетов</h3>
       <pre><code class="lang-bash">pip install django gunicorn psycopg2-binary djangorestframework drf-yasg django-cors-headers
+
 pip freeze -l > requirements.txt</code></pre>
 
       <h3 class="section-title">Конфигурация БД и другие настройки</h3>
       <p>Вынести настройки в отдельную директорию в project</p>
       <div class="text-block">
         <div class="file-path">settings.py</div>
-        <pre><code class="lang-python">DATABASES = {
+        <pre><code class="lang-python">SECRET_KEY = os.environ.get('SECRET_KEY', default='key')
+BASE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..')
+DEBUG = os.environ.get('DEBUG') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')
+
+DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
     'NAME': environ.get('POSTGRES_NAME'),
@@ -45,22 +51,16 @@ pip freeze -l > requirements.txt</code></pre>
     'HOST': 'db',
     'PORT': 5432,
   } 
-}
-SECRET_KEY = os.environ.get('SECRET_KEY', default='key')
-BASE_DIR = os.path.join(os.path.dirname(__file__), '..', '..', '..')
-DEBUG = os.environ.get('DEBUG') == 'True'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', default='0.0.0.0').split(' ')</code></pre>
+}</code></pre>
         </div>
       <h3 class="section-title">Docker-конфигурация</h3>
       <div class="text-block">
         <div class="file-path">Dockerfile</div>
         <pre><code class="lang-docker">FROM python:3.13-slim
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN apt update \
-&& apt upgrade \
-&& apt install postgresql gcc python3-dev musl-dev -y
+RUN apt update && apt upgrade -y && apt install postgresql gcc python3-dev musl-dev -y
 WORKDIR /project
 COPY requirements.txt .
 RUN pip install --upgrade pip
@@ -74,9 +74,9 @@ app:
     container_name: app
     build: .
     command: gunicorn --bind 0.0.0.0:8000
-            --log-level debug
-            --reload
-            --workers 4 project.wsgi:application
+                      --log-level debug
+                      --reload
+                      --workers 4 project.wsgi:application
     volumes:
         - ./project:/project
         - ./volumes/media:/media
@@ -90,7 +90,8 @@ app:
 db:
     container_name: database
     image: postgres:17-alpine
-    env_file: .env.dev
+    env_file:
+        - ./.env.dev
     volumes:
         - ./volumes/db/data:/var/lib/postgresql/data</code></pre>
       </div>
