@@ -52,12 +52,12 @@ bantime = 1h</code></pre>
       <h3 class="section-title">Oh-my-ZSH</h3>
         <pre><code class="lang-bash">sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k""</code></pre>
-        <p>Добавить <b>zsh-syntax-highlighting zsh-autosuggestions</b> в ~/.zshrc в plugins</p>
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"</code></pre>
+        <p>Добавить <b>zsh-syntax-highlighting zsh-autosuggestions docker docker-compose</b> в ~/.zshrc в plugins</p>
         <p>Добавить powerlevel10k/powerlevel10k в ~/.zshrc ZSH_THEME</p>
 
       <h3 class="section-title">Docker</h3>
@@ -67,7 +67,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 
 sudo apt update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code></pre>
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose</code></pre>
 
       <h3 class="section-title">Nginx</h3>
       <pre><code class="lang-bash">sudo apt install ufw
