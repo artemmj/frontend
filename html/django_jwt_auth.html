@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Настройка Django/PostgreSQL/DRF | aamakarenko.ru</title>
   <link href="../styles.css" rel="stylesheet">
+  <link href="../prism/prism-okaidia.min.css" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -21,56 +22,57 @@
           <span>📅 25 Марта 2024</span>
           <span>🏷️ Django, JWT</span>
       </div>
-      <div class="command-block"><pre><code>pip install jwt</code></pre></div>
-      <div class="command-block"><pre><code>python project/manage.py startapp user</code></pre></div>
+      <pre><code class="lang-bash">pip install PyJWT</code></pre>
+      <pre><code class="lang-bash">python project/manage.py startapp user</code></pre>
+
       <div class="text-block">
         <div class="file-path">models.py</div>
-        <code><pre>import jwt
-
-from datetime import datetime, timedelta
-
-from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from django.db import models
-
-
-class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(db_index=True, max_length=255, unique=True)
-    email = models.EmailField(db_index=True, unique=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    USERNAME_FIELD = 'email'  # сообщает, какое поле использовать для входа в систему
-    REQUIRED_FIELDS = ['username']  # обязательные поля для создания
-
-    objects = UserManager()
-
-    def __str__(self):
-        return self.email
-
-    @property
-    def token(self):
-        return self._generate_jwt_token()
-
-    def get_full_name(self):
-        return self.username
-
-    def get_short_name(self):
-        return self.username
-
-    def _generate_jwt_token(self):
-        dt = datetime.now() + timedelta(days=1)
-        return jwt.encode({
-            'id': self.pk,
-            'exp': int(dt.strftime('%s'))
-        }, settings.SECRET_KEY, algorithm='HS256')
-        </pre></code>
+        <pre><code class="lang-py">import jwt
+  
+  from datetime import datetime, timedelta
+  
+  from django.conf import settings
+  from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+  from django.db import models
+  
+  
+  class User(AbstractBaseUser, PermissionsMixin):
+      username = models.CharField(db_index=True, max_length=255, unique=True)
+      email = models.EmailField(db_index=True, unique=True)
+      is_active = models.BooleanField(default=True)
+      is_staff = models.BooleanField(default=False)
+      created_at = models.DateTimeField(auto_now_add=True)
+      updated_at = models.DateTimeField(auto_now=True)
+  
+      USERNAME_FIELD = 'email'  # сообщает, какое поле использовать для входа в систему
+      REQUIRED_FIELDS = ['username']  # обязательные поля для создания
+  
+      objects = UserManager()  # сюда менеджер, который будет ниже
+  
+      def __str__(self):
+          return self.email
+  
+      @property
+      def token(self):
+          return self._generate_jwt_token()
+  
+      def get_full_name(self):
+          return self.username
+  
+      def get_short_name(self):
+          return self.username
+  
+      def _generate_jwt_token(self):
+          dt = datetime.now() + timedelta(days=1)
+          return jwt.encode({
+              'id': self.pk,
+              'exp': int(dt.strftime('%s'))
+          }, settings.SECRET_KEY, algorithm='HS256')</code></pre>
       </div>
+
       <div class="text-block">
         <div class="file-path">managers.py</div>
-        <pre><code>from django.contrib.auth.models import BaseUserManager
+        <pre><code class="lang-py">from django.contrib.auth.models import BaseUserManager
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -94,13 +96,49 @@ class UserManager(BaseUserManager):
         user.save()
         return user</code></pre>
       </div>
+
       <p>В settings указать модель юзера, провести миграцию, зарегистрировать юзера в admin.py</p>
-      <div class="command-block"><pre><code class="command">AUTH_USER_MODEL = 'user.User'</code></pre></div>
+      <pre><code class="lang-py">AUTH_USER_MODEL = 'user.User'</code></pre>
+
       <h3 class="section-title">Регистрация новых пользователей</h3>
+      <div class="text-block">
+        <div class="file-path">views.py</div>
+        <pre><code class="lang-py">from django.contrib.auth import get_user_model
+
+from rest_framework import status, viewsets
+from rest_framework .decorators import action
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+
+# from .renderers import UserJSONRenderer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer
+
+User = get_user_model()
+
+
+class UserAPIView(viewsets.GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserRegistrationSerializer
+    permission_classes = (AllowAny,)
+    # renderer_classes = (UserJSONRenderer,)
+
+    @action(['post'], detail=False)
+    def registration(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(['post'], detail=False)
+    def login(self, request):
+        serializer = UserLoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)</code></pre>
+      </div>
       <p>Зарегать вьюсет в api/urls.py</p>
       <div class="text-block">
         <div class="file-path">managers.py</div>
-        <pre><code>from django.contrib.auth.models import BaseUserManager
+        <pre><code class="lang-py">from django.contrib.auth.models import BaseUserManager
 
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
@@ -125,8 +163,8 @@ class UserManager(BaseUserManager):
         return user</code></pre>
       </div>
       <div class="text-block">
-        <div class="file-path">api/user/serializers.py</div>
-        <pre><code>from django.contrib.auth import authenticate, get_user_model
+        <div class="file-path">serializers.py</div>
+        <pre><code class="lang-py">from django.contrib.auth import authenticate, get_user_model
 
 from rest_framework import serializers
 
@@ -188,8 +226,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
       <h3 class="section-title">Перегрузка EXCEPTION_HANDLER и NON_FIELD_ERRORS_KEY</h3>
       <p>Настройка DRF под названием EXCEPTION_HANDLER возвращает словарь ошибок</p>
       <div class="text-block">
-          <div class="file-path">project/exceptions.py</div>
-          <pre><code>from rest_framework.views import exception_handler
+        <div class="file-path">exceptions.py</div>
+        <pre><code class="lang-py">from rest_framework.views import exception_handler
 
 def core_exception_handler(exc, context):
     response = exception_handler(exc, context)
@@ -212,8 +250,8 @@ def _handle_generic_error(exc, context, response):
       </div>
       <p>Добавить кастомный обработчик в settings</p>
       <div class="text-block">
-          <div class="file-path">settings.py</div>
-          <pre><code>REST_FRAMEWORK = {
+        <div class="file-path">settings.py</div>
+        <pre><code class="lang-py">REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'project.exceptions.core_exception_handler',
     'NON_FIELD_ERRORS_KEY': 'error',
 }</code></pre>
@@ -222,7 +260,7 @@ def _handle_generic_error(exc, context, response):
       <p>В Django существует идея бекендов аутентификации. Бекенд - это, по сути, план принятия решения о том, аутентифицирован ли пользователь. Нам нужно создать собственный бекенд для поддержки JWT, поскольку по умолчанию он не поддерживается ни Django ни DRF.</p>
       <div class="text-block">
         <div class="file-path">apps/user/backends.py</div>
-        <pre><code>import jwt
+        <pre><code class="lang-py">import jwt
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -277,12 +315,14 @@ class JWTAuthentication(authentication.BaseAuthentication):
       <p>Сообщить DRF про наш аутентификационный бекенд</p>
       <div class="text-block">
         <div class="file-path">project/settings.py</div>
-        <pre><code>REST_FRAMEWORK = {
+        <pre><code class="lang-py">REST_FRAMEWORK = {
     ...
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'apps.user.backends.JWTAuthentication',
-    ),}</code></pre>
-    </div>
+    ),
+    ...
+}</code></pre>
+      </div>
     </article>
   </main>
   <footer>
@@ -290,5 +330,9 @@ class JWTAuthentication(authentication.BaseAuthentication):
       <p>Код с любовью ❤️</p>
   </footer>
   <script src="../script.js"></script>
+  <script src="../prism/prism.min.js"></script>
+  <script src="../prism/prism-bash.min.js"></script>
+  <script src="../prism/prism-python.min.js"></script>
+  <script src="../prism/prism-docker.min.js"></script>
 </body>
 </html>

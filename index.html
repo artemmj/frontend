@@ -28,12 +28,26 @@
   <script>
     // Генерация карточек статей
     const posts = [
+      // {
+      //   link: "html/javascript_basics.html",
+      //   title: "JavaScript. Основы",
+      //   date: "7 Апреля 2025",
+      //   tags: "🏷️ JavaScript",
+      //   content: ""
+      // },
+      // {
+      //   link: "html/javascript_basics.html",
+      //   title: "HTML/CSS. Основы",
+      //   date: "1 Апреля 2025",
+      //   tags: "🏷️ HTML, CSS",
+      //   content: ""
+      // },
       {
-        link: "html/server_setup.html",
-        title: "Настройка сервера Linux (Ubuntu)",
-        date: "15 Марта 2025",
-        tags: "🏷️ Linux Ubuntu, DevOps, Docker, Nginx",
-        content: "Пакеты, команды, программы и их настройки, которые пригодятся при поднятии локального сервера Ubuntu."
+        link: "html/django_jwt_auth.html",
+        title: "Настройка JWT аутентификации в Django",
+        date: "25 Марта 2025",
+        tags: "🏷️ Django, JWT",
+        content: ""
       },
       {
         link: "html/drf_rest_api.html",
@@ -43,12 +57,12 @@
         content: "Заметка-шпагралка по поднятию проекта Django - подключение PostgreSQL, оборачивание в Docker-контейнер, настройка CORS, Swagger."
       },
       {
-        link: "html/django_jwt_auth.html",
-        title: "Настройка JWT аутентификации в Django",
-        date: "25 Марта 2025",
-        tags: "🏷️ Django, JWT",
-        content: ""
-      }
+        link: "html/server_setup.html",
+        title: "Настройка сервера Linux (Ubuntu)",
+        date: "15 Марта 2025",
+        tags: "🏷️ Linux Ubuntu, DevOps, Docker, Nginx",
+        content: "Пакеты, команды, программы и их настройки, которые пригодятся при поднятии локального сервера Ubuntu."
+      },
     ];
     const postsContainer = document.getElementById('postsContainer');
     posts.forEach((post, index) => {
