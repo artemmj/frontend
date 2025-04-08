@@ -73,6 +73,10 @@ nav {
   align-items: center;                /* Выравнивание по центру */
 }
 
+ul {
+  margin-left: 30px;
+}
+
 /* Стили логотипа */
 .logo {
   font-size: 1.5rem;                  /* Размер шрифта */
@@ -173,6 +177,10 @@ footer {
   animation: card-entrance 0.5s ease-out;
 }
 
+.article-container h3 {
+  text-align: center;
+}
+
 /* Заголовок первого уровня статьи */
 .article-title {
   /* Цвет текста из акцентной переменной */
@@ -227,7 +235,7 @@ footer {
   /* Фон из первичной переменной */
   background: rgb(211, 229, 240);
   /* Внутренние отступы */
-  padding: 1rem;
+  padding: 5px;
   /* Закругление углов */
   border-radius: 5px;
   /* Горизонтальный скролл при необходимости */
@@ -239,7 +247,7 @@ footer {
   /* Акцентный цвет текста */
   color: var(--accent);
   /* Отступы: сверху 2rem, снизу 1rem */
-  margin: 2rem 0 1rem;
+  margin: 2rem auto 1rem;
   /* Отступ для визуального разделения линии */
   padding-bottom: 0.3rem;
   /* Пунктирная акцентная линия снизу */
