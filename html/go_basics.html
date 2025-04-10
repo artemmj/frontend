@@ -21,7 +21,7 @@
       <p>Go представляет собой компилируемый статически типизированный язык программирования от компании Google. Go предназначен для разного, но прежде всего это веб-сервисы и клиент-серверные приложения. Хотя также язык обладает возможностями по работе с графикой, низкоуровневыми возможностями и т.д. Работа над языком Go началась в 2007 в недрах компании Google. Одним из авторов является Кен Томпсон, который, является одним из авторов языка Си. 10 ноября 2009 года язык был анонсирован, а в марте 2012 года вышла версия 1.0. В феврале 2024 года вышла версия 1.22.</p>
       <h3 class="section-title">Арифметические операции</h3>
       <div class="text-block">
-        <pre><code class="lang-go">var a int = 10
+        <pre class="collapsible-code"><code class="lang-go">var a int = 10
 var b int = 4
 var c int = a / b      // 2
 
@@ -39,7 +39,7 @@ a--                    // 7</code></pre>
       </div>
       <h3 class="section-title">Условные выражения</h3>
       <div class="text-block">
-        <pre><code class="lang-go">var a int = 8
+        <pre class="collapsible-code"><code class="lang-go">var a int = 8
 var b int = 3
 var c bool = a > b   // true
 var c bool = a <= b  // false
@@ -57,7 +57,7 @@ var c bool = 3 == 5 || 10 > 8  // true</code></pre>
       <h3 class="section-title">Массивы</h3>
       <p>Массивы представляют последовательность элементов определенного типа.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var numbers [число_элементов]тип_элементов
+        <pre class="collapsible-code"><code class="lang-go">var numbers [число_элементов]тип_элементов
 var numbers [5]int
 // Значений не может быть больше длины массива
 var numbers [5]int = [5]int{1,2,3,4,5}
@@ -81,7 +81,7 @@ fmt.Println(colors[2])  // blue</code></pre>
       <ul>
         <li>if...else</li>
         <div class="text-block">
-          <pre><code class="lang-go">if a == 9 {
+          <pre class="collapsible-code"><code class="lang-go">if a == 9 {
     fmt.Println("a = 9")
 } else if a == 8 {
   fmt.Println("a = 8")
@@ -93,7 +93,7 @@ fmt.Println(colors[2])  // blue</code></pre>
         </div>
         <li>switch</li>
         <div class="text-block">
-          <pre><code class="lang-go">a := 5
+          <pre class="collapsible-code"><code class="lang-go">a := 5
 switch(a) {
   case 3: fmt.Println("a = 9")
   case 2: fmt.Println("a = 2")
@@ -110,7 +110,7 @@ switch(a) {
       </ul>
       <h3 class="section-title">Циклы</h3>
       <div class="text-block">
-        <pre><code class="lang-go">for [инициализация счетчика]; [условие]; [изменение счетчика] {
+        <pre class="collapsible-code"><code class="lang-go">for [инициализация счетчика]; [условие]; [изменение счетчика] {
   // действия
 }
 
@@ -134,7 +134,7 @@ for i < 10{
       </div>
       <p><b>Перебор массивов</b></p>
       <div class="text-block">
-        <pre><code class="lang-go">for индекс, значение := range массив{
+        <pre class="collapsible-code"><code class="lang-go">for индекс, значение := range массив{
   // действия
 }
 
@@ -158,7 +158,7 @@ for i:= 0; i < len(datas); i++ {
       </div>
       <h3 class="section-title">Функции и их параметры, возвращение результата из функции</h3>
       <div class="text-block">
-        <pre><code class="lang-go">func имя_функции (список_параметров) тип_возвращаемого_значения {
+        <pre class="collapsible-code"><code class="lang-go">func имя_функции (список_параметров) тип_возвращаемого_значения {
   выполняемые_операторы
   return возвращаемое_значение
 }
@@ -194,7 +194,7 @@ func add(x, y int, data1, data2 string) (z int, returnData string) {
       <h3 class="section-title">Тип функции</h3>
       <p>Каждая функция имеет определенный тип, который складывается из списка типов параметров и списка типов возвращаемых результатов.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func add(x int, y int) int{  // func(int, int) int
+        <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int{  // func(int, int) int
   return x + y
 }
 func multiply(x int, y int) int{  //func(int, int) int
@@ -207,7 +207,7 @@ func display(message string){  // func(string)
       </div>
       <p>Но какое значение имеет тип функции? Это значит, что мы можем определять переменные или параметры функций, которые будут представлять определенный тип функциии. То есть фактически переменная может быть функцией.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func add(x int, y int) int{
+        <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int{
   return x + y
 }
 var f func(int, int) int = add
@@ -216,7 +216,7 @@ var x = f(4, 5)  // 9</code></pre>
       </div>
       <p>При этом переменная может изменять функцию, на которую она указывает, но при этому функция обязательно должна соответствовать ее типу</p>
       <div class="text-block">
-        <pre><code class="lang-go">package main
+        <pre class="collapsible-code"><code class="lang-go">package main
 
 import "fmt"
 
@@ -236,7 +236,7 @@ func main() {
       </div>
       <p>Также функция может передаваться в качестве параметра в другую функцию.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func isEven(n int) bool{ return n % 2 == 0 }
+        <pre class="collapsible-code"><code class="lang-go">func isEven(n int) bool{ return n % 2 == 0 }
 func isPositive(n int) bool{ return n > 0 }
 
 func sum(numbers []int, criteria func(int) bool) int {
@@ -256,7 +256,7 @@ fmt.Println(sumOfPositives)               // 37</code></pre>
       </div>
       <p>Функция также может возвращаться из другой функции в качестве результата.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func add(x int, y int) int{ return x + y}
+        <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int{ return x + y}
 func subtract(x int, y int) int{ return x - y}
 func multiply(x int, y int) int{ return x * y}
 
@@ -272,7 +272,7 @@ fmt.Println(f(3, 4))  // 12</code></pre>
       </div>
       <p><b>Анонимные функции</b> - это функции, которым не назначено имя. Они отличаются от обычных функций также тем, что они могут определяться внутри других функций и также могут иметь доступ к контексту выполнения. Анонимные функции позволяют нам определить некоторое действие непосредственно там, где оно применяется.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var f func(int, int) int = func(x, y int) int{ return x + y}
+        <pre class="collapsible-code"><code class="lang-go">var f func(int, int) int = func(x, y int) int{ return x + y}
 
 
 // Анонимная функция как аргумент функции
@@ -317,7 +317,7 @@ func main() {
       <h3 class="section-title">defer и panic</h3>
       <p>Оператор <b>defer</b> позволяет выполнить определенную функцию в конце программы, при этом не важно, где в реальности вызывается эта функция.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func main() {
+        <pre class="collapsible-code"><code class="lang-go">func main() {
   defer finish()
   defer fmt.Println("Program has been started")
   fmt.Println("Program is working")
@@ -334,7 +334,7 @@ func finish(){
       </div>
       <p>Оператор <b>panic</b> позволяет сгенерировать ошибку и выйти из программы.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func main() {
+        <pre class="collapsible-code"><code class="lang-go">func main() {
   fmt.Println(divide(15, 5))
   fmt.Println(divide(4, 0))
   fmt.Println("Program has been finished")
@@ -348,7 +348,7 @@ func divide(x, y float64) float64{
       <h3 class="section-title">Срезы</h3>
       <p><b>Срезы (slice)</b> представляют последовательность элементов одного типа переменной длины. В отличие от массивов длина в срезах не фиксирована и динамически может меняться, то есть можно добавлять новые элементы или удалять уже существующие.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var users []string
+        <pre class="collapsible-code"><code class="lang-go">var users []string
 
 var data1 = []string{ "data1", "data2", "data3" }
 data2 := []string{ "data1", "data2", "data3" }
@@ -357,19 +357,19 @@ var data3 []string = make([]string, 3)</code></pre>
       </div>
       <p>Для добавления в срез применяется встроенная функция <b>append(slice, value)</b>. Первый параметр функции - срез, в который надо добавить, а второй параметр - значение, которое нужно добавить. Результатом функции является увеличенный срез.</p>
       <div class="text-block">
-        <pre><code class="lang-go">datas := []string{"data1", "data2", "data3"}
+        <pre class="collapsible-code"><code class="lang-go">datas := []string{"data1", "data2", "data3"}
 newdatas = append(datas, "data4")</code></pre>
       </div>
       <p><b>Оператор среза s[i:j]</b> создает из последовательности s новый срез, который содержит элементы последовательности s с i по j-1. При этом должно соблюдаться условие 0 <= i <= j <= cap(s). В качестве исходной последовательности, из которой берутся элементы, может использоваться массив, указатель на массив или другой срез. В итоге в полученном срезе будет j-i элементов. Если значение i не указано, то применяется по умолчанию значение 0. Если значение j не указано, то вместо него используется длина исходной последовательности s.</p>
       <div class="text-block">
-        <pre><code class="lang-go">initialDatas := [8]string{ "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8" }
+        <pre class="collapsible-code"><code class="lang-go">initialDatas := [8]string{ "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8" }
 datas1 := initialDatas[2:6]  // с 3-го по 6-й ["data3", "data4", "data5", "data6"]
 datas1 := initialDatas[:4]   // с 1-го по 4-й ["data1", "data2", "data3", "data4"]
 datas1 := initialDatas[3:]   // с 4-го до конца ["data4", "data5", "data6", "data7", "data8"]</code></pre>
       </div>
       <p>Чтобы удалить какой-то определенный элемент, можем комбинировать функцию append и оператор среза.</p>
       <div class="text-block">
-        <pre><code class="lang-go">initialDatas := []string{ "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8" }
+        <pre class="collapsible-code"><code class="lang-go">initialDatas := []string{ "data1", "data2", "data3", "data4", "data5", "data6", "data7", "data8" }
 // Удаляем 4-й элемент
 var n = 3
 datas = append(datas[:n], datas[n+1:]...)  // ["data1", "data2", "data3", "data5", "data6", "data7", "data8"]</code></pre>
@@ -377,7 +377,7 @@ datas = append(datas[:n], datas[n+1:]...)  // ["data1", "data2", "data3", "data5
       <h3 class="section-title">Отображения</h3>
       <p>Отображение или map представляет ссылку на хеш-таблицу - структуру данных, где каждый элемент представляет пару "ключ-значение". При этом каждый элемент имеет уникальный ключ, по которому можно получить значение элемента. Отображение определяется как объект типа map[K]V, где К представляет тип ключа, а V - тип значения. Причем тип ключа K должен поддерживать операцию сравнения ==, чтобы отображение могло сопоставить значение с одним из ключей и хеш-таблицы.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var datas map[string]int   // Ключи представляют тип string, значения - тип int
+        <pre class="collapsible-code"><code class="lang-go">var datas map[string]int   // Ключи представляют тип string, значения - тип int
 var datas = map[string]int{ 
   "id1": 1,
   "id2": 2,
@@ -419,21 +419,21 @@ fmt.Println(datas)     // map[id1:1  id3:4]</code></pre>
       <h3 class="section-title">Указатели</h3>
       <p>Указатели представляют собой объекты, значением которых служат адреса других объектов (например, переменных). Указатель определяется как обычная переменная, только перед типом данных ставится символ звездочки *. Этому указателю можно присвоить адрес переменной определенного типа.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var x int = 4   // определяем переменную
+        <pre class="collapsible-code"><code class="lang-go">var x int = 4   // определяем переменную
 var p *int      // определяем указатель 
 p = &x          // указатель получает адрес переменной
 fmt.Println(p)  // значение самого указателя - адрес переменной x (напр. 0xc0420120a0)</code></pre>
       </div>
       <p>По адресу, который хранит указатель, мы получить значение переменной x. Для этого применяется операция * или операция разыменования. Результатом этой операции является значение переменной, на которую указывает указатель.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var x int = 4
+        <pre class="collapsible-code"><code class="lang-go">var x int = 4
 var p *int  = &x            // указатель получает адрес переменной
 fmt.Println("Address:", p)  // значение указателя - адрес переменной x
 fmt.Println("Value:", *p)   // значение переменной x</code></pre>
       </div>
       <p>И также используя указатель, мы можем менять значение по адресу, который хранится в указателе.</p>
       <div class="text-block">
-        <pre><code class="lang-go">var x int = 4
+        <pre class="collapsible-code"><code class="lang-go">var x int = 4
 var p *int = &x
 *p = 25
 fmt.Println(x)  // 25
@@ -451,7 +451,7 @@ if pf != nil{
       </div>
       <p>Go также позволяет создавать безымянные объекты - они также размещаются в памяти, но не имеют имени как переменные. Для этого применяется функция new(type). В эту функцию передается тип, объект которого надо создать. Функция возвращает указатель на созданный объект.</p>
       <div class="text-block">
-        <pre><code class="lang-go">p := new(int) 
+        <pre class="collapsible-code"><code class="lang-go">p := new(int) 
 fmt.Println("Value:", *p)  // Value: 0 - значение по умолчанию
 *p = 8                     // изменяем значение
 fmt.Println("Value:", *p)  // Value: 8</code></pre>
@@ -460,7 +460,7 @@ fmt.Println("Value:", *p)  // Value: 8</code></pre>
       <h3 class="section-title">Указатели как параметры функции</h3>
       <p>По умолчанию все параметры передаются в функцию по значению. Функция получает копию переданной переменной и работает с ней независимо от оригинальной переменной. Если нам все таки надо менять значение передаваемой переменной - надо использовать указатели.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func changeValue(x *int){
+        <pre class="collapsible-code"><code class="lang-go">func changeValue(x *int){
   *x = (*x) * (*x)
 }
 func main() {
@@ -472,7 +472,7 @@ func main() {
       </div>
       <p>Функция может возвращать указатель.</p>
       <div class="text-block">
-        <pre><code class="lang-go">func createPointer(x int) *int{
+        <pre class="collapsible-code"><code class="lang-go">func createPointer(x int) *int {
   p := new(int)
   *p = x
   return p
@@ -487,6 +487,225 @@ func main() {
   fmt.Println("p3:", *p3)     // p3: 28
 }</code></pre>
       </div>
+      <h3 class="section-title">Именованные типы и псевдонимы</h3>
+      <p>Оператор type позволяет определять именнованный тип на основе другого.</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type mile uint
+type kilometer uint
+
+func distanceToEnemy (distance mile) {
+  fmt.Println("расстояние для противника:")
+  fmt.Println(distance, "миль")
+}
+
+var distance mile = 5
+distanceToEnemy(distance)
+var distance1 uint = 5
+// distanceToEnemy(distance1)   // ошибка
+var distance2 kilometer = 5
+// distanceToEnemy(distance2)   // ошибка
+
+// Где еще можно применять именнованные типы - это сокращение названия типов, если они слишком длинные
+type BinaryOp func(int, int) int
+func action(n1 int, n2 int, op BinaryOp){
+  result := op(n1, n2)
+  fmt.Println(result)
+}
+func add(x int, y int) int {
+  return x + y
+}
+func main() {
+  var myOperation BinaryOp = add
+  action(10, 35, myOperation)     // 45
+}</code></pre>
+      </div>
+      <p>На именнованные типы похожи <b>псевдонимы</b>. Они также определяются с помощью оператора type, только при присвоении типа применяется операция присваивания</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type mile = uint
+type kilometer = uint
+
+func distanceToEnemy (distance mile) {
+    fmt.Println("расстояние для противника:")
+    fmt.Println(distance, "миль")
+}
+func main() {
+    var distance mile = 5
+    distanceToEnemy(distance)
+    var distance1 uint = 5
+    distanceToEnemy(distance1)   // ok
+    var distance2 kilometer = 5
+    distanceToEnemy(distance2)   // ok
+}</code></pre>
+      </div>
+      <p>Несмотря на то, что параметр функции distanceToEnemy определен как параметр типа mile, ему можно передать и значение собственно типа uint, и значение его псевдонима - kilometer. Обычо псевдонимы применяются для сокращения названий других типов или для определения более описательного имени.</p>
+      <h3 class="section-title">Структуры</h3>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type data_struct struct {
+  id    int
+  value string
+}
+
+func main() {
+  var qwe data_struct = data_struct{1, "qwe"}
+  var alice data_struct = data_struct{id: 2, value: "Alice"}
+  var asd_zxc = data_struct{id: 3, value: "asdzxc"}
+  bob := data_struct{id: 4, value: "Bob"}
+  undefined := data_struct{} // id - 0, value - пустая строка
+
+  // Обращение через точку
+  fmt.Println(qwe.id, qwe.value)
+  fmt.Println(alice.id, alice.value)
+  fmt.Println(asd_zxc.id, asd_zxc.value)
+  fmt.Println(bob.id, bob.value)
+  fmt.Println(undefined.id, undefined.value)
+}</code></pre>
+      </div>
+      <p>Как и в случае с обычными переменными, можно создавать <b>указатели на структуры</b>.</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type data_struct struct{
+  id    int
+  value string
+}
+
+func main() {
+  data1 := data_struct{id: 1, value: "qwe"}
+  var dataPointer *data_struct = &data1
+  dataPointer.value = "asd"
+  fmt.Println(data1.value)        // asd
+  (*dataPointer).value = "zxc"
+  fmt.Println(data1.value)        // zxc
+}
+
+// Также можно определять указатели на отдельные поля структуры
+data1 := data_struct {id: 2, value: "QWE"}
+var valuePointer *string = &data1.value  // указатель на поле data1.value
+*valuePointer = "ASD"                    // изменяем значение поля
+fmt.Println(data1.value)                 //  ASD
+
+// Поля одних структур могут представлять другие структуры
+type contacts struct{
+  email string
+  phone string
+}
+type user struct{
+  name string
+  age int
+  contactInfo contacts  // можно просто contacts
+}
+var User1 = user {
+  name: "Alex", 
+  age: 24,
+  contactInfo: contact{
+    email: "alex@alex.com",
+    phone: "+1234567899",
+  },
+}</code></pre>
+      </div>
+      <h3 class="section-title">Хранения ссылки на структуру того же типа</h3>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type node struct{
+  value int
+  next *node
+}
+// Рекурсивный вывод списка
+func printNodeValue(n *node){
+  fmt.Println(n.value)
+  if n.next != nil{
+    printNodeValue(n.next)
+  }
+}
+func main() {
+  first := node{value: 4}
+  second := node{value: 5}
+  third := node{value: 6}
+  first.next = &second
+  second.next = &third
+  var current *node = &first
+  for current != nil{
+    fmt.Println(current.value)
+    current = current.next
+  }
+}</code></pre>
+      </div>
+      <p>Здесь определена структура node, которая представляет типичный узел односвязного списка. Она хранит значение в поле value и ссылку на следующий узел через указатель next.</p>
+      <h3 class="section-title">Методы</h3>
+      <p>Метод представляет функцию, связанную с определенным типом. Методы определяются также как и обычные функции за тем исключением, что в определении метода также необходимо указать получателя или receiver. Получатель - это параметр того типа, к которому прикрепляется метод.</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">func (имя_параметра тип_получателя) имя_метода (параметры) (типы_возвращаемых_результатов){
+  тело_метода
+}
+
+// Допустим, определен именованный тип, представляющий срез из строк:
+type library []string
+// Для вывода всех элементов из среза мы можем определить следующий метод:
+func (l library) print(){
+  for _, val := range l{
+    fmt.Println(val)
+  }
+}</code></pre>
+      </div>
+      <p>Та часть, которая расположена между ключевым словом func и именем метода и представляет определение получателя, для которого будет определен этот метод: (l library). Используя параметр получателя (в данном случае l), мы можем обращаться к получателю. Например, в нашем случае получатель представляет срез - набор объектов. С помощью цикла for можно пройтись по этому срезу и вывести все его элементы на консоль.</p>
+      <p>Поскольку print представляет именно метод, который определен для типа library, а не обычную функцию, то мы можем вызвать этот метод у любого объекта типа library.</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">var lib library = library{ "Book1", "Book2", "Book3" }
+lib.print()</code></pre>
+      </div>
+      <h3 class="section-title">Методы структур</h3>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type data_struct struct {
+  name string
+  age  int
+}
+
+func (p data_struct) print() {
+  fmt.Println("Имя:", p.name)
+  fmt.Println("Возраст:", p.age)
+}
+func (p data_struct) eat(meal string) {
+  fmt.Println(p.name, "потребляет", meal)
+}
+
+func main() {
+  var alex = data_struct{name: "Alex", age: 24}
+  alex.print()
+  alex.eat("text text text")
+}</code></pre>
+      </div>
+      <h3 class="section-title">Методы указателей</h3>
+      <p>При вызове метода, объект структуры, для которого определен метод, передается в него по значению. Что это значит?</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type data_struct struct{
+  name string
+  value int
+}
+func (p data_struct) updateValue(newValue int){
+    p.value = newValue
+}
+func main() {
+  var data1 = data_struct { name: "QWE", value: 24 }
+  fmt.Println("before", data1.value)  // 24
+  data1.updateValue(33)
+  fmt.Println("after", data1.value)   // 24  не изменяется, метод updateValue получает копию структуры data1
+}</code></pre>
+      </div>
+      <p>Необходимо использовать указатели на структуры</p>
+      <div class="text-block">
+        <pre class="collapsible-code"><code class="lang-go">type data_struct struct{
+  name string
+  value int
+}
+func (p *data_struct) updateValue(newValue int){
+    (*p).value = newValue
+}
+func main() {
+  var data1 = data_struct { name: "QWE", value: 24 }
+  var data1Pointer *data_struct = &data1
+  fmt.Println("before", data1.value)  // 24
+  data1Pointer.updateValue(33)
+  fmt.Println("after", data1.value)   // 33  ok
+}</code></pre>
+      </div>
+      <p>Стоит отметить, что несмотря на то, что метод updateValue определен для указателя на структуру data_struct, мы по прежнему можем вызывать этот метод и для объекта data_struct.</p>
     </article>
   </main>
 

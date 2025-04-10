@@ -187,6 +187,7 @@ footer {
 
 .article-container h3 {
   text-align: center;
+  background-color: rgb(244, 244, 244);
 }
 
 /* Заголовок первого уровня статьи */
@@ -278,6 +279,51 @@ footer {
   margin: 0.5rem 0;
   /* Строчно-блочное отображение */
   display: inline-block;
+}
+
+/* CSS */
+.collapsible-code {
+  margin: 12px 0;
+  background: #f8f9fa;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.code-toggle {
+  float: right;
+  background: yellowgreen;
+  border: none;
+  padding: 4px 6px;
+  font-family: monospace;
+  color: #495057;
+  cursor: pointer;
+}
+
+.code-toggle::after {
+  content: "";
+  font-size: 0.8em;
+  margin-left: 10px;
+  transition: transform 0.3s;
+}
+
+.code-toggle.collapsed::after {
+  transform: rotate(180deg);
+}
+
+.collapsible-code code {
+  display: block;
+  padding: 12px;
+  transition: opacity 0.3s;
+  max-height: 1000px;
+}
+
+.collapsible-code.collapsed code {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 /* Анимация при наведении на блок */
