@@ -14,6 +14,10 @@ body {
   line-height: 1.6;                    /* Удобочитаемый межстрочный интервал */
 }
 
+img {
+  max-width: 600px;
+}
+
 :root {
   /* Цвета для светлой темы */
   --primary-light: #f0f0f0;       /* Основной фон */
@@ -177,6 +181,10 @@ footer {
   animation: card-entrance 0.5s ease-out;
 }
 
+.article-container h1 {
+  text-align: center;
+}
+
 .article-container h3 {
   text-align: center;
 }
@@ -301,6 +309,9 @@ footer {
   main {
     padding-left: 3px;
     padding-right: 3px;
+  }
+  img {
+    max-width: 300px;
   }
   .article-container {
     /* Уменьшенные отступы и адаптивная ширина */
