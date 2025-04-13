@@ -6,6 +6,11 @@
   <title>Go. База | fullstackdevblog.ru</title>
   <link href="../styles.css" rel="stylesheet">
   <link href="../prism/prism-okaidia.min.css" rel="stylesheet">
+  <meta property="og:title" content="Go. База | fullstackdevblog.ru">
+  <meta property="og:site_name" content="fullstackdevblog.ru">
+  <meta property="og:url" content="fullstackdevblog.ru/html/go_basics.html">
+  <meta property="og:description" content="Основы Go.">
+  <meta property="og:image" content="../img/golang.png">
 </head>
 <body>
   <header>
@@ -28,16 +33,13 @@
         <pre class="collapsible-code"><code class="lang-go">var a int = 10
 var b int = 4
 var c int = a / b      // 2
-
 var k float32 = 10
 var l float32 = 4
 var m float32 = k / l  // 2.5
-
 var c int = 35 % 3     // 2 (35 - 33 = 2)
 
 var a int = 8
 a++                    // 9
-
 var a int = 8
 a--                    // 7</code></pre>
       </div>
@@ -102,9 +104,6 @@ switch(a) {
   case 3: fmt.Println("a = 9")
   case 2: fmt.Println("a = 2")
   case 1: fmt.Println("a = 1")
-  case 9: fmt.Println("a = 9")
-  case 8: fmt.Println("a = 8")
-  case 7: fmt.Println("a = 7")
   case 6, 5, 4: 
     fmt.Println("a = 6 or 5 or 4")
   default: 
@@ -196,7 +195,7 @@ func add(x, y int, data1, data2 string) (z int, returnData string) {
 }</code></pre>
       </div>
       <h3 class="section-title">Тип функции</h3>
-      <p>Каждая функция имеет определенный тип, который складывается из списка типов параметров и списка типов возвращаемых результатов.</p>
+      <p>Каждая функция имеет определенный тип, который складывается из списка типов параметров и списка типов возвращаемых результатов. Какое значение имеет тип функции? Это значит, что мы можем определять переменные или параметры функций, которые будут представлять определенный тип функциии. То есть фактически переменная может быть функцией.</p>
       <div class="text-block">
         <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int{  // func(int, int) int
   return x + y
@@ -204,27 +203,17 @@ func add(x, y int, data1, data2 string) (z int, returnData string) {
 func multiply(x int, y int) int{  //func(int, int) int
   return x * y
 }
-
 func display(message string){  // func(string)
   fmt.Println(message)
-}</code></pre>
-      </div>
-      <p>Но какое значение имеет тип функции? Это значит, что мы можем определять переменные или параметры функций, которые будут представлять определенный тип функциии. То есть фактически переменная может быть функцией.</p>
-      <div class="text-block">
-        <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int{
-  return x + y
 }
+
 var f func(int, int) int = add
 fmt.Println(f(3, 4))
 var x = f(4, 5)  // 9</code></pre>
       </div>
       <p>При этом переменная может изменять функцию, на которую она указывает, но при этому функция обязательно должна соответствовать ее типу</p>
       <div class="text-block">
-        <pre class="collapsible-code"><code class="lang-go">package main
-
-import "fmt"
-
-func add(x int, y int) int { return x + y}
+        <pre class="collapsible-code"><code class="lang-go">func add(x int, y int) int { return x + y}
 func multiply(x int, y int) int { return x * y}
 func display(message string) { fmt.Println(message) }
 
@@ -412,7 +401,7 @@ datas := make(map[string]int)
 // Для добавления элементов достаточно просто выполнить установку значения по новому ключу
 var datas = map[string]int{ "id1": 1, "id2": 2 }
 datas["id999"] = 128
-fmt.Println(people)     // map[id1:1  did2:2  id999:128]
+fmt.Println(datas)     // map[id1:1  did2:2  id999:128]
 
 // Для удаления применяется встроенная функция delete(map, key),
 // первым параметром которой является отображение, а вторым - ключ
@@ -449,6 +438,7 @@ pf := &f
 // указатель по умолчанию имеет значение nil (отстутствие значения)
 var pf *float64
 fmt.Println("Value:", *pf)  // ! ошибка, указатель не указывает на какой-либо объект
+pf := &f
 if pf != nil{
   fmt.Println("Value:", *pf)
 }</code></pre>
