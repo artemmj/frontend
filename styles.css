@@ -173,8 +173,7 @@ footer {
 
 /* Контейнер фильтров */
 .filters {
-  margin-bottom: 20px;
-  margin-left: 20px;
+  margin-left: 50px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
