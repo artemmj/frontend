@@ -11,10 +11,10 @@
     <a href="#" class="logo"> fullstackdevblog.ru</a>
     <div class="filters">
       <button class="filter-btn active" data-filter="all">Все статьи</button>
-      <button class="filter-btn" data-filter="devops">DevOps</button>
-      <button class="filter-btn" data-filter="python-django">Python/Django</button>
-      <button class="filter-btn" data-filter="js">JavaScript</button>
+      <button class="filter-btn" data-filter="django">Django</button>
       <button class="filter-btn" data-filter="go">Go</button>
+      <button class="filter-btn" data-filter="js">JavaScript</button>
+      <button class="filter-btn" data-filter="devops">DevOps</button>
     </div>
   </header>
 
@@ -41,44 +41,44 @@
       // },
       {
         link: "html/go_basics.html",
-        title: "Go. База",
-        date: "10 Апреля 2025",
+        title: "Go. Основы",
+        date: "🗓 10 Апреля 2025",
         tags: "🏷️ Go",
         data_category: "go",
       },
       {
         link: "html/javascript_func.html",
         title: "JavaScript. Функциональное программирование",
-        date: "8 Апреля 2025",
+        date: "🗓 8 Апреля 2025",
         tags: "🏷️ JavaScript",
         data_category: "js",
       },
       {
         link: "html/javascript_basics.html",
-        title: "JavaScript. База",
-        date: "7 Апреля 2025",
+        title: "JavaScript. Основы",
+        date: "🗓 7 Апреля 2025",
         tags: "🏷️ JavaScript",
         data_category: "js",
       },
       {
         link: "html/django_jwt_auth.html",
-        title: "Настройка JWT аутентификации в Django",
-        date: "25 Марта 2025",
-        tags: "🏷️ Django, JWT",
-        data_category: "python-django",
+        title: "Настройка JWT аутентификации в проекте Django",
+        date: "🗓 25 Марта 2025",
+        tags: "🏷️ Django, Auth, JWT",
+        data_category: "django",
       },
       {
         link: "html/djngo_setup.html",
-        title: "Настройка Django для работы с REST API",
-        date: "18 Марта 2025",
+        title: "Настройка проекта Django для работы с REST API",
+        date: "🗓 18 Марта 2025",
         tags: "🏷️ Django, Docker, Django Rest Framework, API, Swagger, CORS",
-        data_category: "python-django",
+        data_category: "django",
       },
       {
         link: "html/server_setup.html",
-        title: "Настройка сервера Linux (Ubuntu)",
-        date: "15 Марта 2025",
-        tags: "🏷️ Linux Ubuntu, DevOps, Docker, Nginx",
+        title: "Быстрая настройка Linux Ubuntu под простой домашний сервер",
+        date: "🗓 15 Марта 2025",
+        tags: "🏷️ Linux, Ubuntu, DevOps, Docker, Nginx",
         data_category: "devops",
       },
     ];
@@ -89,13 +89,15 @@
       card.setAttribute('category', post.data_category)
       card.innerHTML = `
         <a href="${post.link}">
-          <p class="post-date post-tags">${post.date} ${post.tags}</p>
+          <p class="post-tags">${post.tags}</p>
+          <p class="post-date">${post.date}</p>
           <h3>${post.title}</h3>
         </a>
       `;
       card.style.animationDelay = `${index * 0.1}s`;
       postsContainer.appendChild(card);
     });
+
     // Логика фильтрации
     document.querySelectorAll('.filter-btn').forEach(button => {
       button.addEventListener('click', () => {
