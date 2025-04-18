@@ -6,30 +6,39 @@
   transition: all 0.3s ease;      /* Плавные переходы для анимаций */
 }
 
-/* Стилизация основного тела страницы */
 body {
   font-family: 'Segoe UI', sans-serif; /* Современный шрифт */
-  background-color: var(--primary);    /* Динамический фон через переменные */
+  background-color: #f0f0f0;         /* Динамический фон через переменные */
   color: var(--text);                  /* Динамический цвет текста */
   line-height: 1.6;                    /* Удобочитаемый межстрочный интервал */
 }
-
-img {
-  max-width: 600px;
+header {
+  background-color: rgb(255, 255, 255);
+  padding: 1rem;                             /* Внутренние отступы */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);  /* Тень для глубины */
+  width: 100%;                               /* На всю ширину экрана */
+  top: 0;                                    /* Прижатие к верху */
+  z-index: 1000;                             /*Поверх остальных элементов */
+  display: flex;
+}
+main {
+  max-width: 1200px;       /* Ограничение ширины */
+  margin: 10px auto 40px;  /* Отступы сверху/снизу и центрирование */
+  padding: 0 20px;         /* Боковые отступы */
+}
+footer {
+  background: var(--secondary);       /* Фон из переменных */
+  text-align: center;                /* Выравнивание по центру */
+  padding: 2rem;                     /* Внутренние отступы */
+  margin-top: 4rem;                  /* Отступ сверху */
 }
 
 :root {
   /* Цвета для светлой темы */
-  --primary-light: #f0f0f0;       /* Основной фон */
+  --primary-light: #ededed;       /* Основной фон */
   --secondary-light: #ffffff;     /* Вторичный фон (карточки, хедер) */
   --text-light: #333333;          /* Цвет текста */
   --accent-light: #007bff;        /* Акцентный цвет (кнопки, заголовки) */
-  
-  /* Цвета для темной темы */
-  --primary-dark: #1a1a1a;        /* Основной фон темной темы */
-  --secondary-dark: #2d2d2d;       /* Вторичный фон темной темы */
-  --text-dark: #e0e0e0;           /* Цвет текста темной темы */
-  --accent-dark: #00ff88;          /* Акцентный цвет темной темы */
   
   /* Текущие используемые переменные (по умолчанию светлая тема) */
   --primary: var(--primary-light);
@@ -38,289 +47,150 @@ img {
   --accent: var(--accent-light);
 }
 
-/* Автоматическое определение системной темы */
-@media (prefers-color-scheme: dark) {
-  :root {
-      /* Переопределение переменных для темной темы */
-      --primary: var(--primary-dark);
-      --secondary: var(--secondary-dark);
-      --text: var(--text-dark);
-      --accent: var(--accent-dark);
-  }
-}
-
-/* Класс для принудительной темной темы */
-.dark-theme {
-  --primary: var(--primary-dark) !important;
-  --secondary: var(--secondary-dark) !important;
-  --text: var(--text-dark) !important;
-  --accent: var(--accent-dark) !important;
-}
-
-/* Стилизация хедера */
-header {
-  background-color: rgb(255, 255, 255);
-  padding: 1rem;                      /* Внутренние отступы */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Тень для глубины */
-  /* position: fixed;                    Фиксированное позиционирование */
-  width: 100%;                        /* На всю ширину экрана */
-  top: 0;                             /* Прижатие к верху */
-  z-index: 1000;                      /*Поверх остальных элементов */
-}
-
-/* Навигационная панель */
-nav {
-  max-width: 1200px;                  /* Ограничение ширины */
-  margin: 0 auto;                     /* Центрирование */
-  display: flex;                      /* Flex-раскладка */
-  justify-content: space-between;     /* Распределение пространства */
-  align-items: center;                /* Выравнивание по центру */
-}
-
-ul {
-  margin-left: 30px;
-}
-
 /* Стили логотипа */
 .logo {
-  font-size: 1.5rem;                  /* Размер шрифта */
+  font-size: 20px;                    /* Размер шрифта */
   font-weight: bold;                  /* Жирное начертание */
-  color: rgb(0, 135, 0);         /* Акцентный цвет */
+  color: black;                     /* Акцентный цвет */
   text-decoration: none;              /* Убрать подчеркивание */
-  animation: logo-float 0.7s ease-in-out infinite; /* Анимация парения */
-}
-
-/* Кнопка переключения темы */
-.theme-toggle {
-  background: var(--accent);          /* Акцентный фон */
-  border: none;                       /* Без рамки */
-  padding: 0.5rem 1rem;               /* Внутренние отступы */
-  border-radius: 20px;                /* Закругленные углы */
-  cursor: pointer;                    /* Курсор-указатель */
-  color: var(--secondary);            /* Цвет текста из переменных */
-  font-weight: bold;                  /* Жирный текст */
-}
-
-/* Основной контент */
-main {
-  max-width: 1200px;                  /* Ограничение ширины */
-  margin: 10px auto 40px;              /* Отступы сверху/снизу и центрирование */
-  padding: 0 20px;                    /* Боковые отступы */
+  /* animation: logo-float 0.7s ease-in-out infinite; */
+  color: #004998;
 }
 
 /* Сетка карточек статей */
 .posts-grid {
-  display: grid;                      /* CSS Grid раскладка */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Адаптивные колонки */
-  gap: 2rem;                         /* Расстояние между карточками */
-  padding: 2rem 0;                   /* Вертикальные отступы */
+  display: grid;                                                /* CSS Grid раскладка */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* Адаптивные колонки */
+  gap: 13px;                                                     /* Расстояние между карточками */
 }
-
 /* Стили карточки статьи */
 .post-card {
-  background: var(--secondary);       /* Фон карточки */
-  border-radius: 15px;               /* Закругленные углы */
-  padding: 1.5rem;                    /* Внутренние отступы */
-  cursor: pointer;                   /* Курсор-указатель */
-  transform: translateY(0);          /* Начальное положение для анимации */
+  background: var(--secondary);                    /* Фон карточки */
+  border-radius: 15px;                             /* Закругленные углы */
+  padding: 10px;                                   /* Внутренние отступы */
+  cursor: pointer;                                 /* Курсор-указатель */
+  transform: translateY(0);                        /* Начальное положение для анимации */
   animation: card-entrance 0.5s ease-out forwards; /* Анимация появления */
-  opacity: 0;                        /* Начальная прозрачность для анимации */
+  opacity: 0;                                      /* Начальная прозрачность для анимации */
 }
-
+.post-card.hidden {
+  opacity: 0;
+  max-height: 0;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
 /* Эффекты при наведении на карточку */
 .post-card:hover {
-  transform: translateY(-5px);       /* Поднятие карточки */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Тень при наведении */
+  transform: translateX(-10px);       /* Поднятие карточки */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Тень при наведении */
 }
-
 /* Заголовок статьи */
-.post-card h2 {
+.post-card h3 {
   color: var(--accent);              /* Акцентный цвет */
-  margin-bottom: 0.5rem;             /* Отступ снизу */
+  margin-bottom: 10px;               /* Отступ снизу */
 }
-
+.post-card a {
+  text-decoration: none;
+}
 /* Дата публикации */
 .post-date {
-  font-size: 0.9rem;                 /* Размер шрифта */
-  color: var(--text);                /* Цвет из переменных */
-  opacity: 0.7;                      /* Полупрозрачность */
-  margin-bottom: 1rem;               /* Отступ снизу */
+  font-size: 12px;      /* Размер шрифта */
+  color: var(--text);   /* Цвет из переменных */
+  opacity: 0.7;         /* Полупрозрачность */
 }
-
 /* Теги публикации */
 .post-tags {
-  font-size: 0.9rem;                 /* Размер шрифта */
-  color: var(--text);                /* Цвет из переменных */
-  opacity: 0.7;                      /* Полупрозрачность */
-  margin-bottom: 1rem;               /* Отступ снизу */
-}
-
-/* Стили футера */
-footer {
-  background: var(--secondary);       /* Фон из переменных */
-  text-align: center;                /* Выравнивание по центру */
-  padding: 2rem;                     /* Внутренние отступы */
-  margin-top: 4rem;                  /* Отступ сверху */
+  font-size: 12px;      /* Размер шрифта */
+  color: var(--text);   /* Цвет из переменных */
+  opacity: 0.7;         /* Полупрозрачность */
+  margin-bottom: 1rem;  /* Отступ снизу */
 }
 
 /* Основной контейнер для статьи */
 .article-container {
-  /* Ограничение максимальной ширины контента */
-  max-width: 1100px;
-  /* Вертикальные отступы + автоматическое центрирование по горизонтали */
-  margin: 20px auto 40px;
-  /* Внутренние отступы со всех сторон */
-  padding: 2rem;
-  /* Цвет фона из CSS-переменных (меняется при смене темы) */
-  background: var(--secondary);
-  /* Закругление углов контейнера */
-  border-radius: 15px;
-  /* Тень с прозрачностью 5% для эффекта глубины */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-  /* Анимация появления с названием, длительностью и функцией времени */
-  animation: card-entrance 0.5s ease-out;
+  max-width: 1200px;                          /* Ограничение максимальной ширины контента */
+  margin: 20px auto 40px;                     /* Вертикальные отступы + автоматическое центрирование по горизонтали */
+  padding: 2rem;                              /* Внутренние отступы со всех сторон */
+  background: var(--secondary);               /* Цвет фона из CSS-переменных (меняется при смене темы) */
+  border-radius: 15px;                        /* Закругление углов контейнера */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);  /* Тень с прозрачностью 5% для эффекта глубины */
+  animation: card-entrance 0.5s ease-out;     /* Анимация появления с названием, длительностью и функцией времени */
 }
-
 .article-container h1 {
   text-align: center;
 }
-
 .article-container h3 {
   text-align: center;
   background-color: rgb(244, 244, 244);
 }
-
-/* Заголовок первого уровня статьи */
 .article-title {
-  /* Цвет текста из акцентной переменной */
-  color: var(--accent);
-  /* Отступ снизу для визуального разделения */
-  margin-bottom: 1.5rem;
-  /* Размер шрифта для заголовка */
-  font-size: 2.0rem;
-  /* Подчеркивание акцентной линией */
-  border-bottom: 2px solid var(--accent);
-  /* Отступ между текстом и нижней границей */
-  padding-bottom: 0.5rem;
+  color: var(--accent);  /* Цвет текста из акцентной переменной */
+  margin-bottom: 1.5rem;  /* Отступ снизу для визуального разделения */
+  font-size: 2.0rem;  /* Размер шрифта для заголовка */
+  border-bottom: 2px solid var(--accent);  /* Подчеркивание акцентной линией */
+  padding-bottom: 0.5rem;  /* Отступ между текстом и нижней границей */
 }
-
-/* Контейнер мета-данных статьи */
 .article-meta {
-  /* Гибкий контейнер для элементов в строку */
-  display: flex;
-  /* Расстояние между дочерними элементами */
-  gap: 1rem;
-  /* Отступ снизу для разделения с контентом */
-  margin-bottom: 2rem;
-  /* Полупрозрачность для второстепенной информации */
-  opacity: 0.8;
-  /* Уменьшенный размер шрифта */
-  font-size: 0.9rem;
+  display: flex;  /* Гибкий контейнер для элементов в строку */
+  gap: 1rem;  /* Расстояние между дочерними элементами */
+  margin-bottom: 2rem;  /* Отступ снизу для разделения с контентом */
+  opacity: 0.8;  /* Полупрозрачность для второстепенной информации */
+  font-size: 0.9rem;  /* Уменьшенный размер шрифта */
 }
 
 /* Стиль для общих текстовых блоков */
 .text-block {
-  color: rgb(0, 0, 0);
-  /* Акцентная полоса слева */
-  border-left: 4px solid var(--accent);
-  /* Отступ от левой границы */
-  padding-left: 1rem;
-  /* Вертикальные отступы */
-  margin: 1.5rem 0;
-  /* Фон из первичной переменной */
-  background: rgb(211, 229, 240);
-  /* Внутренние отступы */
-  padding: 5px;
-  /* Закругление углов */
-  border-radius: 5px;
-  /* Горизонтальный скролл при необходимости */
+  color: rgb(0, 0, 0);  /* Акцентная полоса слева */
+  border-left: 4px solid var(--accent);  /* Отступ от левой границы */
+  padding-left: 1rem;  /* Вертикальные отступы */
+  margin: 1.5rem 0;  /* Фон из первичной переменной */
+  background: rgb(211, 229, 240);  /* Внутренние отступы */
+  padding: 5px;  /* Закругление углов */
+  border-radius: 5px;  /* Горизонтальный скролл при необходимости */
   overflow-x: auto;
 }
 
 /* Стиль подзаголовков разделов */
 .section-title {
-  /* Акцентный цвет текста */
-  color: var(--accent);
-  /* Отступы: сверху 2rem, снизу 1rem */
-  margin: 2rem auto 1rem;
-  /* Отступ для визуального разделения линии */
-  padding-bottom: 0.3rem;
-  /* Пунктирная акцентная линия снизу */
-  border-bottom: 1px dashed var(--accent);
+  color: var(--accent);  /* Акцентный цвет текста */
+  margin: 2rem auto 1rem;  /* Отступы: сверху 2rem, снизу 1rem */
+  padding-bottom: 0.3rem;  /* Отступ для визуального разделения линии */
+  border-bottom: 1px dashed var(--accent);  /* Пунктирная акцентная линия снизу */
 }
 
 /* Стилизация путей к файлам */
 .file-path {
-  /* Акцентный цвет текста */
-  color: var(--accent);
-  /* Моноширинный шрифт */
-  font-family: monospace;
-  /* Компактные внутренние отступы */
-  padding: 0.2rem 0.4rem;
-  /* Фон из первичной переменной */
-  background: var(--primary);
-  /* Слегка закругленные углы */
-  border-radius: 4px;
-  /* Небольшие вертикальные отступы */
-  margin: 0.5rem 0;
-  /* Строчно-блочное отображение */
-  display: inline-block;
+  color: var(--accent);  /* Акцентный цвет текста */
+  font-family: monospace;  /* Моноширинный шрифт */
+  padding: 0.2rem 0.4rem;  /* Компактные внутренние отступы */
+  background: var(--primary);  /* Фон из первичной переменной */
+  border-radius: 4px;  /* Слегка закругленные углы */
+  margin: 0.5rem 0;  /* Небольшие вертикальные отступы */
+  display: inline-block;  /* Строчно-блочное отображение */
 }
 
-.collapsible-code {
-  margin: 12px 0;
-  background: #f8f9fa;
-  border-radius: 6px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  position: relative;
+/* Контейнер фильтров */
+.filters {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
-
-.code-toggle {
-  float: right;
-  background: yellowgreen;
-  border: none;
-  padding: 4px 6px;
-  font-family: monospace;
-  color: #495057;
+/* Стили кнопок */
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: #f5f5f5;
   cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
 }
-
-.code-toggle::after {
-  content: "";
-  font-size: 0.8em;
-  margin-left: 10px;
-  transition: transform 0.3s;
-}
-
-.code-toggle.collapsed::after {
-  transform: rotate(180deg);
-}
-
-.collapsible-code code {
-  display: block;
-  padding: 12px;
-  transition: opacity 0.3s;
-  max-height: 1000px;
-}
-
-.collapsible-code.collapsed code {
-  max-height: 0;
-  opacity: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-/* Анимация при наведении на блок */
-/* pre:hover {
-  transform: translateY(-2px);
-  transition: transform 0.2s ease;
-} */
-
-/* Анимация парящего логотипа */
-@keyframes logo-float {
-  0%, 100% { transform: translateY(0); } /* Начальная и конечная точки */
-  50% { transform: translateY(-5px); }   /* Средняя точка анимации */
+.filter-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
 }
 
 /* Анимация появления карточек */
