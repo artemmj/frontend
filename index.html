@@ -37,6 +37,7 @@
         title: "Go. Глубже",
         date: "18 Апреля 2025",
         tags: "🏷️ Go",
+        short_content: "Функции (параметры, возврат, тип), указатели, структуры, методы, интерфейсы, полиморфизм",
         data_category: "go",
       },
       {
@@ -44,6 +45,7 @@
         title: "Go. Основы",
         date: "🗓 10 Апреля 2025",
         tags: "🏷️ Go",
+        short_content: "Базовые операции, условные выражения, массивы, условные конструкции, циклы, срезы, отображения, именованные типы и псевдонимы, defer и panic",
         data_category: "go",
       },
       {
@@ -51,6 +53,7 @@
         title: "JavaScript. Функциональное программирование",
         date: "🗓 8 Апреля 2025",
         tags: "🏷️ JavaScript",
+        short_content: "",
         data_category: "js",
       },
       {
@@ -58,6 +61,7 @@
         title: "JavaScript. Основы",
         date: "🗓 7 Апреля 2025",
         tags: "🏷️ JavaScript",
+        short_content: "",
         data_category: "js",
       },
       {
@@ -65,6 +69,7 @@
         title: "Настройка JWT аутентификации в проекте Django",
         date: "🗓 25 Марта 2025",
         tags: "🏷️ Django, Auth, JWT",
+        short_content: "",
         data_category: "django",
       },
       {
@@ -72,6 +77,7 @@
         title: "Настройка проекта Django для работы с REST API",
         date: "🗓 18 Марта 2025",
         tags: "🏷️ Django, Docker, Django Rest Framework, API, Swagger, CORS",
+        short_content: "",
         data_category: "django",
       },
       {
@@ -79,6 +85,7 @@
         title: "Быстрая настройка Linux Ubuntu под простой домашний сервер",
         date: "🗓 15 Марта 2025",
         tags: "🏷️ Linux, Ubuntu, DevOps, Docker, Nginx",
+        short_content: "",
         data_category: "devops",
       },
     ];
@@ -89,9 +96,10 @@
       card.setAttribute('category', post.data_category)
       card.innerHTML = `
         <a href="${post.link}">
-          <p class="post-tags">${post.tags}</p>
           <p class="post-date">${post.date}</p>
+          <p class="post-tags">${post.tags}</p>
           <h3>${post.title}</h3>
+          <p class="post-tags">${post.short_content}</p>
         </a>
       `;
       card.style.animationDelay = `${index * 0.1}s`;
@@ -115,9 +123,9 @@
           } else {
               card.classList.add('hidden');
           }
+        });
       });
     });
-  });
   </script>
 </body>
 </html>

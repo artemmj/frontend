@@ -60,7 +60,7 @@ footer {
 /* Сетка карточек статей */
 .posts-grid {
   display: grid;                                                /* CSS Grid раскладка */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  /* Адаптивные колонки */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));  /* Адаптивные колонки */
   gap: 13px;                                                     /* Расстояние между карточками */
 }
 /* Стили карточки статьи */
@@ -106,6 +106,19 @@ footer {
   color: var(--text);   /* Цвет из переменных */
   opacity: 0.7;         /* Полупрозрачность */
   margin-bottom: 5px;
+}
+
+.list-headings {
+  color: var(--text);
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+}
+.list-headings a {
+  font-size: 18px;
+  text-decoration: none;
+}
+.list-headings a:hover {
+  font-weight: bold;
 }
 
 /* Основной контейнер для статьи */
@@ -173,10 +186,9 @@ footer {
 
 /* Контейнер фильтров */
 .filters {
-  margin-left: 50px;
   display: flex;
+  margin-left: 50px;
   gap: 10px;
-  flex-wrap: wrap;
 }
 /* Стили кнопок */
 .filter-btn {
