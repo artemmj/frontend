@@ -48,13 +48,17 @@ footer {
 }
 
 /* Стили логотипа */
-.logo {
+.logo a {
   font-size: 20px;                    /* Размер шрифта */
   font-weight: bold;                  /* Жирное начертание */
   color: black;                     /* Акцентный цвет */
   text-decoration: none;              /* Убрать подчеркивание */
-  /* animation: logo-float 0.7s ease-in-out infinite; */
+  animation: logo-float 2s ease-in-out infinite;
   color: #004998;
+}
+
+.nav {
+  display:inline;
 }
 
 /* Сетка карточек статей */
@@ -248,8 +252,8 @@ footer {
     padding-left: 3px;
     padding-right: 3px;
   }
-  img {
-    max-width: 300px;
+  code {
+    font-style: bold;
   }
   .article-container {
     /* Уменьшенные отступы и адаптивная ширина */
