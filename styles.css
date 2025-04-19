@@ -109,16 +109,15 @@ footer {
 }
 
 .list-headings {
-  color: var(--text);
-  margin-bottom: 10px;
-  border-bottom: 2px solid var(--accent);
+  margin-bottom: 20px;
 }
 .list-headings a {
-  font-size: 18px;
+  color: var(--accent-light);
+  font-size: 14px;
   text-decoration: none;
 }
 .list-headings a:hover {
-  font-weight: bold;
+  font-style: bold;
 }
 
 /* Основной контейнер для статьи */
@@ -184,11 +183,6 @@ footer {
   display: inline-block;  /* Строчно-блочное отображение */
 }
 
-/* Контейнер фильтров */
-.filters {
-  display: flex;
-  gap: 5px;
-}
 /* Стили кнопок */
 .filter-btn {
   padding: 8px 16px;
@@ -277,7 +271,6 @@ footer {
     height: 40px;
     font-size: 20px;
   }
-  
   .scroll-top.visible {
     bottom: 15px;
   }

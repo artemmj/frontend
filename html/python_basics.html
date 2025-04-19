@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python. Основы | fullstackdevblog.ru</title>
+  <link href="../styles.css" rel="stylesheet">
+  <link href="../prism/prism-okaidia.min.css" rel="stylesheet">
+  <meta property="og:title" content="Python. Основы | fullstackdevblog.ru">
+</head>
+<body>
+  <header>
+    <a href="../index.html" class="logo"> fullstackdevblog.ru</a>
+  </header>
+
+  <main>
+    <article class="article-container">
+      <h1 class="article-title">Python. Основы</h1>
+      <div class="article-meta">
+          <span>🗓 19 Апреля 2025</span>
+          <span>🏷️ Python</span>
+      </div>
+      <div class="list-headings">
+        <ul>
+          <li><a href="#vars">Переменные</a></li>
+          <li><a href="#arifmet_oper">Арифметические операции</a></li>
+          <li><a href="#conditional_expressions">Условные выражения</a></li>
+          <li><a href="#if_cons_cycles">Условная конструкция if, циклы</a></li>
+          <li><a href="#funcs">Функции</a></li>
+          <li><a href="#lambda">Лямбда-выражения</a></li>
+          <li><a href="#retypes">Преобразование типов</a></li>
+          <li><a href="#decorators">Декораторы</a></li>
+          <li><a href="#try-except">try..except</a></li>
+        </ul>
+      </div>
+      <p>Ключевые слова</p>
+      <div class="text-block">
+        <pre><code class="lang-py">False      await      else       import     pass
+None       break      except     in         raise
+True       class      finally    is         return
+and        continue   for        lambda     try
+as         def        from       nonlocal   while
+assert     del        global     not        with
+async      elif       if         or         yield</code></pre>
+      </div>
+      <h3 class="section-title" id="vars">Переменные</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">isAlive = True
+count = 15
+c = 0b100001
+pi = 3.14
+x = 3.9e-3
+message = "Hello World!"
+text1 = ("Laudate omnes gentes laudate "
+        "Magnificat in secula ")
+
+text2 = '''Laudate omnes gentes laudate
+Magnificat in secula
+Et anima mea laudate
+Magnificat in secula'''
+
+result = f"message: {message}  text1: {text1}"
+</code></pre>
+      </div>
+      <h3 class="section-title" id="arifmet_oper">Арифметические операции</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">print(6 + 2)  # 8
+print(6 - 2)   # 4
+print(6 * 2)   # 12
+print(6 / 2)   # 3.0
+print(7 / 2)   # 3.5
+print(7 // 2)  # 3
+print(6 ** 2)  # Возводим число 6 в степень 2. Результат - 36
+print(7 % 2)   # Получение остатка от деления числа 7 на 2. Результат - 1
+
+number = 10
+number += 5  # 15
+number -= 3  # 12
+number *= 4  # 48</code></pre>
+      </div>
+      <h3 class="section-title" id="conditional_expressions">Условные выражения</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">a = 5
+b = 6
+result = 5 == 6  # сохраняем результат операции в переменную
+print(result)    # False - 5 не равно 6
+print(a != b)    # True
+print(a > b)     # False - 5 меньше 6
+print(a < b)     # True
+  
+bool1 = True
+bool2 = False
+print(bool1 == bool2)  # False - bool1 не равно bool2
+
+age = 22
+weight = 58
+result = age > 21 and weight == 58  # True
+
+age = 22
+isFalse = False
+result = age > 21 or isFalse  # True, так как выражение age > 21 равно True
+
+age = 22
+isFalse = False
+print(not age > 21)   # False
+print(not isFalse)    # True
+print(not 4)          # False
+print(not 0)          # True
+
+message = "hello world!"
+hello = "hello"
+print(hello in message)      # True - подстрока hello есть в строке "hello world!"
+print(hello not in message)  # False
+gold = "gold"
+print(gold in message)       # False - подстроки "gold" нет в строке "hello world!"
+print(gold not in message)   # True</code></pre>
+      </div>
+      <h3 class="section-title" id="if_cons_cycles">Условная конструкция if, циклы</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">if [логическое_выражение]:
+    инструкции
+elif [логическое_выражение]:
+    инструкции
+else: 
+    инструкции
+
+while условное_выражение:
+    инструкции
+
+for переменная in набор_значений:
+    инструкции
+
+language = "russian"
+daytime = "morning"
+if language == "english":
+    if daytime == "morning":
+        print("Good morning")
+    else:
+        print("Good evening")
+else:
+    if daytime == "morning":
+        print("Доброе утро")
+
+number = 1
+while number < 5:
+    print(f"number = {number}")
+    if number == 3 :    # если number = 3, выходим из цикла
+        break
+    number += 1
+
+for n in range(10):
+    if number == 3 :    # если number = 3, переходим к новой итерации цикла
+        continue
+    print(n, end=" ")
+
+message = "Hello"
+for c in message:
+    print(c)
+else:
+    print(f"Последний символ: {c}. Цикл завершен");
+print("Работа программы завершена")</code></pre>
+      </div>
+      <h3 class="section-title" id="funcs">Функции</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">def имя_функции ([параметры]):
+    инструкции
+    return возвращаемое_значение
+
+def print_data(param1 = "qwe", param2 = 21):
+    print(f"param1: {param1}  param2: {param2}")
+
+print_data(param1="QWE", param2=999)
+
+
+# Все параметры, которые располагаются справа от символа *, получают значения только по имени
+def print_data(name, *,  age, company):
+    print(f"Name: {name}  Age: {age}  Company: {company}")
+# Можно сделать все параметры именнованными, поставив перед списком параметров символ *:
+def print_data(*,  name, age, company):
+    print(f"Name: {name}  Age: {age}  Company: {company}")
+# Все параметры, которые идут до символа / , являются позиционными и могут получать значения только по позиции
+def print_data(name, /,  age = 18, *, company):
+    print(f"Name: {name}  Age: {age}  Company: {company}")
+
+
+def sum(*numbers):  # Неопределенное количество параметров
+    result = 0
+    for n in numbers:
+        result += n
+    print(f"sum = {result}")
+
+sum(1, 2, 3, 4, 5)  # sum = 15
+sum(3, 4, 5, 6)     # sum = 18
+
+
+def sum(a, b): return a + b
+def subtract(a, b): return a - b
+def multiply(a, b): return a * b
+def select_operation(choice):
+    if choice == 1:
+        return sum
+    elif choice == 2:
+        return subtract
+    else:
+        return multiply
+operation = select_operation(1)  # operation = sum
+print(operation(10, 6))          # 16
+operation = select_operation(2)  # operation = subtract
+print(operation(10, 6))          # 4
+operation = select_operation(3)  # operation = multiply
+print(operation(10, 6))          # 60</code></pre>
+      </div>
+      <p>Мы можем присвоить переменной какую-нибудь функцию и затем, используя переменную, вызывать данную функцию. Мы можем передать ее в качестве параметра в другую функцию. Также одна функция в Python может возвращать другую функцию.</p>
+      <h3 class="section-title" id="lambda">Лямбда-выражения</h3>
+      <p>Лямбда-выражения в языке Python представляют небольшие анонимные функции, которые определяются с помощью оператора lambda.</p>
+      <div class="text-block">
+        <pre><code class="lang-py">lambda [параметры] : инструкция
+
+def select_operation(choice):
+    if choice == 1:
+        return lambda a, b: a + b
+    elif choice == 2:
+        return lambda a, b: a - b
+    else:
+        return lambda a, b: a * b
+operation = select_operation(1)  # operation = sum       # 16
+operation = select_operation(2)  # operation = subtract  # 4
+operation = select_operation(3)  # operation = multiply  # 60</code></pre>
+      </div>
+      <h3 class="section-title" id="retypes">Преобразование типов</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">a = "2"
+b = 3
+c = int(a) + b
+print(c)            # 5
+b = int(3.7)        # b = 3
+c = int(False)      # e = 0
+d = int("a1c")      # Ошибка
+e = int("4.7")      # Ошибка
+
+f = float("5")      # d = 5.0
+g = float(False)    # e = 0.0
+h = float("abc")    # Ошибка
+
+a1 = str(False)      # a = "False"
+d1 = str(5.7)        # d = "5.7"
+
+age = 22
+message = "Age: " + age        # Ошибка
+message = "Age: " + str(age)   # Age: 22
+</code></pre>
+      </div>
+      <h3 class="section-title" id="decorators">Декораторы</h3>
+      <p>Декораторы в Python представляют функцию, которая в качестве параметра получает функцию и в качестве результата также возвращает функцию. Декораторы позволяют модифицировать выполняемую функцию, значения ее параметров и ее результат без изменения исходного кода этой функции.</p>
+      <div class="text-block">
+        <pre><code class="lang-py">def check(input_func):    
+    def output_func(*args):
+        name = args[0]
+        age = args[1]           # получаем значение второго параметра
+        if age < 0: age = 1     # если возраст отрицательный, изменяем его значение на 1
+        input_func(name, age)   # передаем функции значения для параметров
+    return output_func
+
+@check
+def print_person(name, age):
+    print(f"Name: {name}  Age: {age}")
+print_person("Tom", 38)
+print_person("Bob", -5)
+
+# Получение результата функции
+
+def check(input_func):    
+    def output_func(*args):
+        result = input_func(*args)   # передаем функции значения для параметров
+        if result < 0: result = 0    # если результат функции меньше нуля, то возвращаем 0
+        return result
+    return output_func
+
+@check
+def sum(a, b):
+    return a + b
+result1 = sum(10, 20)   # 30
+result2 = sum(10, -20)  # 0</code></pre>
+      </div>
+      <h3 class="section-title" id="try-except">try..except</h3>
+      <div class="text-block">
+        <pre><code class="lang-py">try:
+    инструкции
+except [Тип_исключения]:
+    инструкции
+
+try:
+    number1 = int(input("Введите первое число: "))
+    number2 = int(input("Введите второе число: "))
+    print("Результат деления:", number1/number2)
+except ValueError as e:
+    print("Преобразование прошло неудачно" + str(e))
+except ZeroDivisionError as e:
+    print("Попытка деления числа на ноль" + str(e))
+except BaseException as e:
+    print("Общее исключение" + str(e))
+print("Завершение программы")
+
+# Генерация исключений и оператор raise
+
+try:
+    age = int(input("Введите возраст: "))
+    if age > 110 or age < 1:
+        raise Exception("Некорректный возраст")
+    print("Ваш возраст:", age)
+except ValueError:
+    print("Введены некорректные данные")
+except Exception as e:
+    print(e)</code></pre>
+      </div>
+    </article>
+  </main>
+  <button class="scroll-top" aria-label="Наверх" title="Наверх">
+    ↑
+  </button>
+  <footer>
+    <p>© 2025 fullstackdevblog.ru</p>
+    <p>Код с любовью ❤️</p>
+  </footer>
+  <script src="../script.js"></script>
+  <script src="../prism/prism.min.js"></script>
+  <script src="../prism/prism-python.min.js"></script>
+</body>
+</html>

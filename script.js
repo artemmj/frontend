@@ -7,20 +7,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Показать/скрыть кнопку
     window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-
-    if (scrollY > 400) {
-        scrollBtn.classList.add('visible');
-    } else {
-        scrollBtn.classList.remove('visible');
-    }
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        if (scrollY > 400) { scrollBtn.classList.add('visible'); }
+        else { scrollBtn.classList.remove('visible'); }
     });
 
     // Плавный скролл
     scrollBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 });

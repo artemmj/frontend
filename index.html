@@ -9,8 +9,9 @@
 <body>
   <header>
     <div> <a href="#" class="logo"> fullstackdevblog.ru</a></div>
-    <div class="filters">
+    <div>
       <button class="filter-btn active" data-filter="all">Всё</button>
+      <button class="filter-btn" data-filter="python">Python</button>
       <button class="filter-btn" data-filter="django">Django</button>
       <button class="filter-btn" data-filter="go">Go</button>
       <button class="filter-btn" data-filter="js">JS</button>
@@ -35,6 +36,14 @@
   <script>
     // Генерация карточек статей
     const posts = [
+      {
+        link: "html/python_basics.html",
+        title: "Python. Основы",
+        date: "19 Апреля 2025",
+        tags: "🏷️ Python",
+        short_content: "Переменные, арифметические операции, условные конструкции, IF, циклы, фукнции, лямбды, преобразования типов // декораторы try..except",
+        data_category: "python",
+      },
       {
         link: "html/go_deep.html",
         title: "Go. Глубже",
@@ -76,7 +85,7 @@
         data_category: "django",
       },
       {
-        link: "html/djngo_setup.html",
+        link: "html/django_setup.html",
         title: "Настройка проекта Django для работы с REST API",
         date: "🗓 18 Марта 2025",
         tags: "🏷️ Django, Docker, Django Rest Framework, API, Swagger, CORS",
