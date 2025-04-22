@@ -141,6 +141,12 @@ footer {
   text-align: center;
   background-color: rgb(244, 244, 244);
 }
+.article-container p {
+  margin: 15px;
+}
+.article-container ul {
+  margin-left: 30px;
+}
 .article-title {
   color: var(--accent);  /* Цвет текста из акцентной переменной */
   margin-bottom: 1.5rem;  /* Отступ снизу для визуального разделения */

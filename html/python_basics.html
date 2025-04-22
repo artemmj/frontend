@@ -10,7 +10,7 @@
 </head>
 <body>
   <header>
-     <div class="logo"><a href="../index.html"> fullstackdevblog.ru</a></div>
+      <div class="logo"><a href="../index.html"> fullstackdevblog.ru</a></div>
   </header>
 
   <main>
@@ -22,7 +22,8 @@
       </div>
       <div class="list-headings">
         <ul>
-          <li><a href="#vars">Переменные</a></li>
+          <li><a href="#intro">Вступление</a></li>
+          <li><a href="#vars">Переменные, области видимости</a></li>
           <li><a href="#arifmet_oper">Арифметические операции</a></li>
           <li><a href="#conditional_expressions">Условные выражения</a></li>
           <li><a href="#if_cons_cycles">Условная конструкция if, циклы</a></li>
@@ -33,9 +34,13 @@
           <li><a href="#try-except">try..except</a></li>
         </ul>
       </div>
-      <p>Ключевые слова</p>
+      <h3 class="section-title" id="intro">Вступление</h3>
+      <p>Представьте себе инструмент, который превращает ваши идеи в код так же легко, как вы записываете мысли на бумаге. Python — это не просто язык программирования. Это мост между человеческой логикой и машинным интеллектом, между начинающим энтузиастом и профессионалом, между мечтой и реальностью. Python не требует жертвовать красотой ради функциональности. Он позволяет писать программы, которые понятны как компьютеру, так и человеку.</p>
+      <p>Этот язык — как универсальный ключ: он открывает двери в мир IT, Data Science, игр, робототехники и даже искусства. Здесь не нужны сложные настройки или годы обучения. Все, что требуется, — ваше любопытство и труд.</p>
       <div class="text-block">
-        <pre><code class="lang-py">False      await      else       import     pass
+        <pre><code class="lang-py"># Ключевые слова в Python
+
+False      await      else       import     pass
 None       break      except     in         raise
 True       class      finally    is         return
 and        continue   for        lambda     try
@@ -43,103 +48,147 @@ as         def        from       nonlocal   while
 assert     del        global     not        with
 async      elif       if         or         yield</code></pre>
       </div>
-      <h3 class="section-title" id="vars">Переменные</h3>
+      <h3 class="section-title" id="vars">Переменные, области видимости</h3>
+      <p><b>Область видимости</b> или <b>scope</b> определяет контекст переменной, в рамках которого ее можно использовать. В Python есть два типа контекста: <b>глобальный</b> и <b>локальный</b>. <b>Глобальный</b> контекст подразумевает, что переменная является глобальной, она определена вне любой из функций и доступна любой функции в программе. <b>Локальная</b> же переменная определяется внутри функции и доступна только из этой функции, то есть имеет локальную область видимости.</p>
       <div class="text-block">
-        <pre><code class="lang-py">isAlive = True
-count = 15
-c = 0b100001
-pi = 3.14
-x = 3.9e-3
-message = "Hello World!"
+        <pre><code class="lang-py">x = 10              # Целое число (int)
+y = 3.14            # Дробное число (float)
+name = "Alice"      # Строка (str)
+is_valid = True     # Булево значение (bool)
+empty = None        # Пустое значение (NoneType)
+
+value = 42          # int
+value = "Сорок два" # str  # динамическая типизация
+
+# Константы (условные)
+PI = 3.14159
+MAX_USERS = 100
+
+# Множественное присваивание (распаковка)
+a, b, c = 1, 2, 3          # a=1, b=2, c=3
+x = y = z = 0              # x=0, y=0, z=0
+name, age = "Alice", 25    # Распаковка кортежа
+
+# Варианты объявления многострочных строк
 text1 = ("Laudate omnes gentes laudate "
         "Magnificat in secula ")
-
 text2 = '''Laudate omnes gentes laudate
 Magnificat in secula
 Et anima mea laudate
 Magnificat in secula'''
+result = f"text2: {text2}  text1: {text1}"
 
-result = f"message: {message}  text1: {text1}"
-</code></pre>
+# Области видимости
+# Локальные — внутри функции.
+# Глобальные — объявлены вне функций.
+count = 10          # Глобальная переменная
+def update():
+    global count    # Указываем, что работаем с глобальной переменной
+    count += 5      # Изменяем глобальное значение
+update()            # count == 15</code></pre>
       </div>
       <h3 class="section-title" id="arifmet_oper">Арифметические операции</h3>
+      <p>При последовательном использовании нескольких арифметических операций их выполнение производится в соответствии с их приоритетом.</p>
+      <p><b>Особенности:</b></p>
+      <ul>
+        <li>Деление <b>/</b> всегда возвращает float, даже для целых чисел</li>
+        <li>Целочисленное деление <b>//</b> округляет вниз для отрицательных чисел</li>
+        <li>Остаток от деления <b>%</b> сохраняет знак делителя</li>
+      </ul>
+      <p>Приоритет: <b>скобки → степень → умножение/деление → сложение/вычитание</b>.</p>
       <div class="text-block">
-        <pre><code class="lang-py">print(6 + 2)  # 8
-print(6 - 2)   # 4
-print(6 * 2)   # 12
-print(6 / 2)   # 3.0
-print(7 / 2)   # 3.5
-print(7 // 2)  # 3
-print(6 ** 2)  # Возводим число 6 в степень 2. Результат - 36
-print(7 % 2)   # Получение остатка от деления числа 7 на 2. Результат - 1
+        <pre><code class="lang-py">a = 10
+b = 3
+print(a + b)   # 13    (сложение)
+print(a - b)   # 7     (вычитание)
+print(a * b)   # 30    (умножение)
+print(a ** b)  # 1000  (степень: 10³)
+print(a / b)   # 3.333 (обычное деление)
+print(a // b)  # 3     (целочисленное деление)
+print(a % b)   # 1     (остаток от деления)
 
-number = 10
-number += 5  # 15
-number -= 3  # 12
-number *= 4  # 48</code></pre>
+print(8 / 2)    # 4.0 (не 4)
+print(-7 // 2)  # -4  (не -3)
+print(-7 % 3)   # 2   (так как -7 = (-3)*3 + 2)
+
+# Сокращенные операции
+x = 5
+x += 2   # x = 7 (аналогично -=, *=, /=, **=)
+x **= 2  # x = 49
+
+# Для работы с дробями использовать модуль fractions или округлять результаты
+print(0.1 + 0.2)           # 0.30000000000000004 (погрешность)
+print(round(0.1 + 0.2, 1)) # 0.3 (округление до 1 знака)</code></pre>
       </div>
       <h3 class="section-title" id="conditional_expressions">Условные выражения</h3>
+      <p>Python считает ложными:</p>
+      <ul>
+        <li><b>False</b></li>
+        <li><b>0, 0.0</b></li>
+        <li><b>"" (пустая строка)</b></li>
+        <li><b>None</b></li>
+        <li><b>[], {}, set() (пустые коллекции)</b></li>
+      </ul>
       <div class="text-block">
-        <pre><code class="lang-py">a = 5
-b = 6
+        <pre><code class="lang-py">a, b = 5, 6
 result = 5 == 6  # сохраняем результат операции в переменную
 print(result)    # False - 5 не равно 6
 print(a != b)    # True
 print(a > b)     # False - 5 меньше 6
-print(a < b)     # True
-  
-bool1 = True
-bool2 = False
-print(bool1 == bool2)  # False - bool1 не равно bool2
 
-age = 22
-weight = 58
-result = age > 21 and weight == 58  # True
-
-age = 22
-isFalse = False
+# Логические операторы
+age, isFalse = 22, False
 result = age > 21 or isFalse  # True, так как выражение age > 21 равно True
+print(not age > 21)           # False
+print(not 0)                  # True
+if x > 0 and x < 10:          # True, если оба условия верны
+if not is_blocked:            # Инвертирует условие
 
-age = 22
-isFalse = False
-print(not age > 21)   # False
-print(not isFalse)    # True
-print(not 4)          # False
-print(not 0)          # True
-
+# Проверка вхождения (in)
 message = "hello world!"
-hello = "hello"
-print(hello in message)      # True - подстрока hello есть в строке "hello world!"
-print(hello not in message)  # False
-gold = "gold"
-print(gold in message)       # False - подстроки "gold" нет в строке "hello world!"
-print(gold not in message)   # True</code></pre>
+print("hello" in message)      # True - подстрока hello есть в строке "hello world!"
+print("gold" not in message)   # True
+
+# Тернарный оператор
+result = "Четное" if x % 2 == 0 else "Нечетное"
+
+# Строки сравниваются лексикографически
+print("apple" < "banana")  # True (сравнение посимвольно)
+
+# Числа разных типов сравниваются корректно
+print(5 == 5.0)  # True (но 5 is 5.0 → False)
+
+# Проверка идентичности (is) - для сравнения объектов, а не значений
+a = [1, 2]
+b = [1, 2]
+print(a == b)  # True (значения одинаковы)
+print(a is b)  # False (разные объекты)
+
+# Для сложных условий используй скобки
+if (x > 0) and (y != "error"):</code></pre>
       </div>
       <h3 class="section-title" id="if_cons_cycles">Условная конструкция if, циклы</h3>
       <div class="text-block">
-        <pre><code class="lang-py">if [логическое_выражение]:
+        <pre><code class="lang-py"># Выражение if
+
+if [логическое_выражение]:
     инструкции
 elif [логическое_выражение]:
     инструкции
 else: 
     инструкции
 
-while условное_выражение:
-    инструкции
-
-for переменная in набор_значений:
-    инструкции
-
-language = "russian"
-daytime = "morning"
-if language == "english":
-    if daytime == "morning":
-        print("Good morning")
-    else:
-        print("Good evening")
+if True:
+    return True
+elif False:
+    return False
 else:
-    if daytime == "morning":
-        print("Доброе утро")
+    return None  # :)
+
+# Цикл while
+
+while [логическое_выражение]:
+    инструкции
 
 number = 1
 while number < 5:
@@ -147,6 +196,11 @@ while number < 5:
     if number == 3 :    # если number = 3, выходим из цикла
         break
     number += 1
+
+# Цикл for
+
+for переменная in набор_значений:
+    инструкции
 
 for n in range(10):
     if number == 3 :    # если number = 3, переходим к новой итерации цикла
@@ -156,7 +210,7 @@ for n in range(10):
 message = "Hello"
 for c in message:
     print(c)
-else:
+else:  # возможность выполнить что=то на последней итерации
     print(f"Последний символ: {c}. Цикл завершен");
 print("Работа программы завершена")</code></pre>
       </div>
@@ -166,11 +220,9 @@ print("Работа программы завершена")</code></pre>
     инструкции
     return возвращаемое_значение
 
-def print_data(param1 = "qwe", param2 = 21):
+def print_data(param1 = "qwe", param2 = 21):  # значения параметров по-умолчанию
     print(f"param1: {param1}  param2: {param2}")
-
 print_data(param1="QWE", param2=999)
-
 
 # Все параметры, которые располагаются справа от символа *, получают значения только по имени
 def print_data(name, *,  age, company):
@@ -182,17 +234,16 @@ def print_data(*,  name, age, company):
 def print_data(name, /,  age = 18, *, company):
     print(f"Name: {name}  Age: {age}  Company: {company}")
 
-
-def sum(*numbers):  # Неопределенное количество параметров
+# Неопределенное количество параметров
+def sum(*numbers):
     result = 0
     for n in numbers:
         result += n
     print(f"sum = {result}")
-
 sum(1, 2, 3, 4, 5)  # sum = 15
 sum(3, 4, 5, 6)     # sum = 18
 
-
+# Возврат функций из фукнций
 def sum(a, b): return a + b
 def subtract(a, b): return a - b
 def multiply(a, b): return a * b
@@ -203,16 +254,16 @@ def select_operation(choice):
         return subtract
     else:
         return multiply
-operation = select_operation(1)  # operation = sum
-print(operation(10, 6))          # 16
-operation = select_operation(2)  # operation = subtract
-print(operation(10, 6))          # 4
-operation = select_operation(3)  # operation = multiply
-print(operation(10, 6))          # 60</code></pre>
+summa = select_operation(1)  # operation = sum
+print(summa(10, 6))          # 16
+subt = select_operation(2)   # operation = subtract
+print(subt(10, 6))           # 4
+mult = select_operation(3)   # operation = multiply
+print(mult(10, 6))           # 60</code></pre>
       </div>
       <p>Мы можем присвоить переменной какую-нибудь функцию и затем, используя переменную, вызывать данную функцию. Мы можем передать ее в качестве параметра в другую функцию. Также одна функция в Python может возвращать другую функцию.</p>
       <h3 class="section-title" id="lambda">Лямбда-выражения</h3>
-      <p>Лямбда-выражения в языке Python представляют небольшие анонимные функции, которые определяются с помощью оператора lambda.</p>
+      <p><b>Лямбда-выражения</b> в языке Python представляют небольшие анонимные функции, которые определяются с помощью оператора <b>lambda</b>.</p>
       <div class="text-block">
         <pre><code class="lang-py">lambda [параметры] : инструкция
 
@@ -223,27 +274,23 @@ def select_operation(choice):
         return lambda a, b: a - b
     else:
         return lambda a, b: a * b
-operation = select_operation(1)  # operation = sum       # 16
-operation = select_operation(2)  # operation = subtract  # 4
-operation = select_operation(3)  # operation = multiply  # 60</code></pre>
+summa = select_operation(1)  # operation = sum
+summa(2, 3)  # 5
+multi = select_operation(3)  # operation = multiply
+multi(2, 3)  # 6</code></pre>
       </div>
       <h3 class="section-title" id="retypes">Преобразование типов</h3>
       <div class="text-block">
         <pre><code class="lang-py">a = "2"
 b = 3
-c = int(a) + b
-print(c)            # 5
+c = int(a) + b      # 5
 b = int(3.7)        # b = 3
-c = int(False)      # e = 0
-d = int("a1c")      # Ошибка
-e = int("4.7")      # Ошибка
-
-f = float("5")      # d = 5.0
-g = float(False)    # e = 0.0
-h = float("abc")    # Ошибка
-
-a1 = str(False)      # a = "False"
-d1 = str(5.7)        # d = "5.7"
+c = int("a1c")      # Ошибка
+d = int("4.7")      # Ошибка
+e = float("5")      # d = 5.0
+f = float("abc")    # Ошибка
+g = str(False)      # a = "False"
+h = str(5.7)        # d = "5.7"
 
 age = 22
 message = "Age: " + age        # Ошибка
