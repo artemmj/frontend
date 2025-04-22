@@ -28,10 +28,12 @@
           <li><a href="#conditional_expressions">Условные выражения</a></li>
           <li><a href="#if_cons_cycles">Условная конструкция if, циклы</a></li>
           <li><a href="#funcs">Функции</a></li>
+          <li><a href="#packing">Упаковка и распаковка</a></li>
           <li><a href="#lambda">Лямбда-выражения</a></li>
           <li><a href="#retypes">Преобразование типов</a></li>
           <li><a href="#decorators">Декораторы</a></li>
           <li><a href="#try-except">try..except</a></li>
+          <li><a href="#strings">Строки</a></li>
           <li><a href="#oop">ООП</a></li>
           <li><a href="#lists">Списки (list), срезы</a></li>
           <li><a href="#tuples">Кортежи (tuple)</a></li>
@@ -310,6 +312,84 @@ print(subt(10, 6))           # 4
 mult = select_operation(3)   # operation = multiply
 print(mult(10, 6))           # 60</code></pre>
       </div>
+      <h3 class="section-title" id="packing">Упаковка и распаковка</h3>
+      <div class="text-block">
+        <pre><code class="lang-py"># Позиционная распаковка:
+values = [1, 2, 3]
+a, b, c = values          # a=1, b=2, c=3
+point = (10, 20)
+x, y = point              # x=10, y=20
+first, *rest = [1,2,3,4]  # first=1, rest=[2,3,4] (* для "остатка")
+
+# Игнорирование элементов:
+a, _, c = (1, 2, 3)   # _ = 2 (не используется)
+
+# Упаковка в функции (*args и **kwargs)
+# Сбор позиционных аргументов:
+def sum_all(*args):
+    return sum(args)
+print(sum_all(1, 2, 3))  # 6 (args = (1,2,3))
+
+# Сбор именованных аргументов:
+def print_profile(**kwargs):
+    for key, val in kwargs.items():
+        print(f"{key}: {val}")
+print_profile(name="Alice", age=25)  # kwargs = {'name': 'Alice', 'age': 25}
+
+# Распаковка в вызовах функций
+# Передача элементов коллекции как аргументов:
+def multiply(a, b):
+    return a * b
+nums = [3, 4]
+print(multiply(*nums))  # 12 (эквивалентно multiply(3, 4))
+
+# Распаковка словаря в именованные аргументы:
+def greet(name, message):
+    print(f"{message}, {name}!")
+params = {"name": "Bob", "message": "Hello"}
+greet(**params)  # Hello, Bob!
+
+# Объединение коллекций
+# Списки/кортежи:
+list1 = [1, 2]
+list2 = [*list1, 3, 4]  # [1, 2, 3, 4]
+# Словари (Python 3.5+):
+dict1 = {"a": 1}
+dict2 = {"b": 2, **dict1}  # {'b': 2, 'a': 1}
+
+# Распаковка в циклах
+users = [("Alice", 25), ("Bob", 30)]
+for name, age in users:
+    print(f"{name}: {age}")
+# Для словарей:
+for key, value in {"x": 10, "y": 20}.items():
+    print(key, "→", value)
+
+# Примеры с zip
+names = ["Alice", "Bob"]
+ages = [25, 30]
+for name, age in zip(names, ages):
+    print(name, age)  # Alice 25, Bob 30
+# Создание словаря через zip:
+dict(zip(names, ages))  # {'Alice': 25, 'Bob': 30}
+
+# Порядок распаковки:
+a, *b, c = [1, 2, 3, 4]  # a=1, b=[2,3], c=4
+
+# Распаковка генераторов:
+gen = (x for x in range(3))
+a, b, c = gen  # a=0, b=1, c=2
+
+# Ошибки при несоответствии размеров:
+# a, b = [1, 2, 3]  # ValueError: too many values to unpack
+# a, b, c = [1, 2]  # ValueError: not enough values
+
+# Советы:
+# 1. Используйте *_ для игнорирования нескольких элементов: a, *_ = [1,2,3,4]
+# 2. Комбинируйте с enumerate():
+for index, (name, age) in enumerate([("Alice", 25), ("Bob", 30)]):
+    print(index, name, age)</code></pre>
+      </div>
       <h3 class="section-title" id="lambda">Лямбда-выражения</h3>
       <p><b>Лямбда-выражения</b> в языке Python представляют небольшие анонимные функции, которые определяются с помощью оператора <b>lambda</b>.</p>
       <div class="text-block">
@@ -435,6 +515,82 @@ except ValueError as e:
     print("Логируем ошибку")
     raise  # Повторно вызывает исключение для внешней обработки</code></pre>
       </div>
+      <h3 class="section-title" id="strings">Строки</h3>
+      <pre><code class="lang-py">s1 = 'Простая строка'  
+s2 = "Строка с кавычками: 'Привет'"  
+s3 = """Многострочная
+строка"""  
+s4 = r"Сырая строка: \n не преобразуется"  # \n выведется как текст
+
+text = "  Hello, World!  "
+
+# Изменение регистра  
+print(text.upper())                  # "  HELLO, WORLD!  "  
+print(text.lower())                  # "  hello, world!  "  
+print("python".capitalize())         # "Python"  
+# Удаление пробелов  
+print(text.strip())                  # "Hello, World!"  
+# Поиск и замена  
+print(text.find("World"))            # 8 (индекс начала подстроки)  
+print(text.replace("Hello", "Hi"))   # "  Hi, World!  "  
+# Проверки  
+print("123".isdigit())               # True  
+print("abc".isalpha())               # True  
+# Разделение и объединение  
+print("a,b,c".split(","))            # ['a', 'b', 'c']  
+print(" ".join(["Hello", "World"]))  # "Hello World"  
+
+# Форматирование строк
+name = "Анна"
+age = 25
+# f-строки (Python 3.6+)  
+print(f"{name} ({age} лет)")                   # Анна (25 лет)  
+print(f"Число: {10.5:.2f}")                    # Число: 10.50  
+# Метод format()  
+print("{0} любит {1}".format(name, "Python"))  # Анна любит Python  
+# Старый стиль (%)  
+print("Сайт: %s, Год: %d" % ("python.org", 2024))
+
+# Индексы и срезы
+s = "abcdef"
+# Обращение по индексу  
+print(s[0])     # 'a'  
+print(s[-1])    # 'f' (последний символ)  
+# Срезы [start:end:step]  
+print(s[1:4])   # 'bcd' (символы с 1 до 4 не включительно)  
+print(s[::2])   # 'ace' (каждый второй символ)  
+print(s[::-1])  # 'fedcba' (реверс строки)  
+
+# Полезные операции
+# Длина строки  
+print(len("Hello"))  # 5  
+# Проверка вхождения подстроки  
+print("ell" in "Hello")  # True  
+# Экранирование символов  
+print("Первая строка\nВторая строка")  # Перевод строки  
+print("Кавычки: \"Python\"")           # Кавычки: "Python"  
+# ASCII/Unicode  
+print(ord("A"))   # 65 (код символа)  
+print(chr(65))    # 'A'  
+
+# Многострочные строки и выравнивание
+# Выравнивание текста  
+print("Текст".ljust(10, "-"))  # Текст------  
+print("Текст".center(10, "*")) # **Текст**  
+# Многострочный текст  
+multiline = """  
+Строка 1  
+    Строка 2  
+Строка 3  
+"""
+print(multiline)
+
+# Удалить все цифры из строки  
+s = "a1b2c3"
+clean = "".join([c for c in s if not c.isdigit()])  # "abc"  
+# Перевернуть слова в строке  
+text = "Hello World Python"
+reversed_words = " ".join(text.split()[::-1])       # "Python World Hello"</code></pre>
       <h3 class="section-title" id="oop">ООП</h3>
       <p>Ключевые концепции: <b>классы</b>, <b>объекты</b>, <b>наследование</b>, <b>инкапсуляция</b>, <b>полиморфизм</b>, <b>абстракция</b>.</p>
       <p>Советы:</p>
